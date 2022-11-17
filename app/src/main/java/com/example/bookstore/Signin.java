@@ -4,15 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 
-import com.example.bookstore.R;
-import com.google.android.material.button.MaterialButton;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 public class Signin extends AppCompatActivity {
 
@@ -25,7 +24,7 @@ public class Signin extends AppCompatActivity {
         TextView username =(TextView) findViewById(R.id.username);
         TextView password =(TextView) findViewById(R.id.password);
 
-        MaterialButton login = (MaterialButton) findViewById(R.id.login);
+        Button login = (Button) findViewById(R.id.login);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,9 +32,9 @@ public class Signin extends AppCompatActivity {
 
                 if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
                     //correct
-                    Toast.makeText(Signin.this,"LOGIN SUCCESSFUL",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(Signin.this, Home.class);
-                    startActivity(intent);
+//                    Toast.makeText(Signin.this,"LOGIN SUCCESSFUL NEXT",Toast.LENGTH_SHORT).show();
+                    Intent homeIntent = new Intent(Signin.this, Home.class);
+                    startActivity(homeIntent);
                     finish();
                 }else
                     //incorrect
