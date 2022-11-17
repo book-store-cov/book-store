@@ -1,107 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView  xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor"
-    tools:context=".AddBook">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditText
-        android:id="@+id/addbookTitle"
-        android:layout_width="260dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Title of the book"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addbookUpload" />
 
-    <EditText
-        android:id="@+id/addbookAuthor"
-        android:layout_width="256dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Author"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addbookTitle" />
-
-    <EditText
-        android:id="@+id/addbookISBN"
-        android:layout_width="256dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="ISBN-13"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addbookPublicationDate" />
-
-    <EditText
-        android:id="@+id/addbookPublicationDate"
-        android:layout_width="256dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="date"
-        android:text="Publication date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addbookAuthor" />
-
-    <ImageView
-        android:id="@+id/addbookUpload"
-        android:layout_width="107dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="72dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:srcCompat="@drawable/uploadicon" />
-
-    <EditText
-        android:id="@+id/addbookDescription"
-        android:layout_width="256dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:text="Description/Summary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addbookISBN" />
-
-    <Button
-        android:id="@+id/addbookSubmit"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="Add book"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addbookDescription" />
+        android:background="@color/backgroundColor"
+        android:paddingBottom="40dp"
+        tools:context=".AddBook">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="521dp"
-        android:layout_height="65dp"
-        android:background="@color/primaryColor"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="521dp"
+            android:layout_height="65dp"
+            android:background="@color/primaryColor"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/addbookTitle"
+            android:layout_width="260dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="48dp"
+            android:ems="10"
+            android:hint="Title of the book"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addbookUpload" />
+
+        <EditText
+            android:id="@+id/addbookAuthor"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Author"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addbookTitle" />
+
+        <EditText
+            android:id="@+id/addbookISBN"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="ISBN-13"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addbookPublicationDate" />
+
+        <ImageView
+            android:id="@+id/addbookUpload"
+            android:layout_width="107dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:srcCompat="@drawable/uploadicon" />
+
+        <EditText
+            android:id="@+id/addbookDescription"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Description/Summary"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addbookISBN" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/addbookSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:background="@color/primaryColor"
+            android:text="Add book"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addbookDescription" />
+
+        <EditText
+            android:id="@+id/addbookPublicationDate"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="32dp"
+            android:drawablePadding="200dp"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Publication date"
+            android:inputType="date"
+            android:paddingLeft="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addbookAuthor" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="17dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/addbookPublicationDate"
+            app:layout_constraintStart_toStartOf="@+id/addbookPublicationDate"
+            app:layout_constraintTop_toTopOf="@+id/addbookPublicationDate"
+            app:layout_constraintVertical_bias="0.512"
+            app:srcCompat="@drawable/calendar" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
