@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:398342532572:android:fea59e4a47a4274de03319",
+        "android_client_info": {
+          "package_name": "com.example.bookstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398342532572-3pt4lnk5lvbqqmrh9a3chi40ujmji43n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_wUZpSss9fSHr-c4Hfk9oQpKvJbyCvDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398342532572-3pt4lnk5lvbqqmrh9a3chi40ujmji43n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:398342532572:android:518f36734a8ff275e03319",
         "android_client_info": {
           "package_name": "com.example.bookstoreapp"
