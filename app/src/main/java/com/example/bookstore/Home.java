@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.bookstore.AddBook;
+import com.example.bookstore.databinding.ActivityAddBookBinding;
 import com.example.bookstore.databinding.ActivityHomeBinding;
 
 
@@ -15,7 +16,8 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         binding.addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
