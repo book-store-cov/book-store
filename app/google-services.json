@@ -38,7 +38,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:398342532572:android:518f36734a8ff275e03319",
         "android_client_info": {
-          "package_name": "com.example.bookstoreapp"
+          "package_name": "com.example.bookstore"
         }
       },
       "oauth_client": [
@@ -46,7 +46,7 @@
           "client_id": "398342532572-h4mkju63pk8c1dauqfatugq9uksmi0f9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.bookstoreapp",
+            "package_name": "com.example.bookstore",
             "certificate_hash": "a5645b90c8656a42c55b5240d55b7c4637716016"
           }
         },
