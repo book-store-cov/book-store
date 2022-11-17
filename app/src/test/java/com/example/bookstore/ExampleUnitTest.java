@@ -1,4 +1,4 @@
-package com.example.bookstoreapp;
+package com.example.bookstore;
 
 import org.junit.Test;
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".SigninActivity">
+    tools:context=".Signin">
 
     <TextView
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
-        android:background="#66deae"
+        android:background="#66DEAE"
         android:drawableLeft="@drawable/ic_baseline_person_outline_24"
         android:drawablePadding="20dp"
         android:hint="Username"
@@ -45,7 +45,7 @@
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/black"
-        android:background="#66deae"
+        android:background="#66DEAE"
         android:drawableLeft="@drawable/ic_baseline_lock_open_24"
         android:drawablePadding="20dp"
         android:inputType="textPassword"/>
@@ -60,7 +60,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="#66deae"
+        android:backgroundTint="#66DEAE"
         android:text="Sign in" />
 
     <TextView

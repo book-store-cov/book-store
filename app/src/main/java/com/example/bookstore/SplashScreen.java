@@ -1,4 +1,4 @@
-package com.example.bookstoreapp;
+package com.example.bookstore;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +11,15 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity ;
 
-public class SplashActivity extends AppCompatActivity{
+public class SplashScreen extends AppCompatActivity{
 
     private static int SPLASH_SCREEN_TIMEOUT = 2000;
     @Override
-     protected void onCreate (Bundle savedinstanceState){
+    protected void onCreate (Bundle savedinstanceState){
         super.onCreate(savedinstanceState);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.splash_activity);
+        setContentView(R.layout.activity_splash_screen);
 
         Animation fadeout=new AlphaAnimation(1,0);
         fadeout.setInterpolator(new AccelerateInterpolator());
@@ -31,9 +31,9 @@ public class SplashActivity extends AppCompatActivity{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-        Intent intent = new Intent(SplashActivity.this, SigninActivity.class);
-            startActivity(intent);
-        finish();
+                Intent intent = new Intent(SplashScreen.this, com.example.bookstore.Signin.class);
+                startActivity(intent);
+                finish();
             }
         }, SPLASH_SCREEN_TIMEOUT);
 
