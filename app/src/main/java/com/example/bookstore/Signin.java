@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Signin extends AppCompatActivity {
     TextView createnewAccount;
-
+    TextView resetPassword;
     EditText inputEmail, inputPassword;
     Button btnLogin;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -42,6 +42,7 @@ public class Signin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        resetPassword=findViewById(R.id.resetPassword);
         createnewAccount=findViewById(R.id.createNewAccount);
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
@@ -49,6 +50,13 @@ public class Signin extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+
+        resetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Signin.this, Reset.class));
+            }
+        });
 
         createnewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
