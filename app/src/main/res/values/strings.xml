@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">bookstore</string>
+    <string name="priceHeader">Retail Price: £0 </string>
+    <string name="ab_publication_date">Publication date</string>
+    <string name = "ab_submit_btn" >Add book</string>
+    <string name = "ab_description" >Description/Summary</string>
+    <string name = "ab_isbn" >ISBN-13</string>
+    <string name = "ab_author" >Author</string>
+    <string name = "ab_title" >Title of the book</string>
+
+
+
 </resources>
