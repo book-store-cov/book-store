@@ -21,7 +21,7 @@ public class Home extends AppCompatActivity {
         binding.addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Home.this, AddBook.class);
+                Intent intent = new Intent(Home.this, BookListMain.class);
                 startActivity(intent);
             }
         });
