@@ -63,7 +63,6 @@ public class Home extends AppCompatActivity {
         adminRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("",dataSnapshot.getChildren().toString());
                 Overview overview = dataSnapshot.getValue(Overview.class);
                 tAllBooks = overview.getAllBooks();
                 tSoldBooks = overview.getSoldBooks();
