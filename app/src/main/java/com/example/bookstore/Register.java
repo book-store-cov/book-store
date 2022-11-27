@@ -21,6 +21,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+
 
 public class Register extends AppCompatActivity {
     TextView alreadyHaveaaccount;
@@ -29,6 +34,8 @@ public class Register extends AppCompatActivity {
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
 
+    //FirebaseDatabase db = FirebaseDatabase.getInstance();
+    //DatabaseReference root = db.getReference("users");
     FirebaseAuth mAuth;
     FirebaseUser mUser;
    @Override
@@ -61,6 +68,16 @@ public class Register extends AppCompatActivity {
            }
        });
    }
+
+    /*void addUser(String email, String password) {
+        HashMap<String, Object> user = new HashMap<>();
+
+        user.put("Email", email);
+        user.put("Password", password);
+
+        root.setValue(user);
+    }*/
+
    private void PerforAuth(){
        String email=inputEmail.getText().toString();
        String password=inputPassword.getText().toString();
@@ -96,6 +113,7 @@ public class Register extends AppCompatActivity {
                }
             }
         });
+
        }
 
    }
