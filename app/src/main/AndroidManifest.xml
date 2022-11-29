@@ -32,7 +32,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Home"
+            android:name=".MainActivity"
             android:exported="true"
             android:label="bookstore-home">
             <meta-data

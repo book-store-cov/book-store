@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 
 import android.view.WindowManager;
@@ -114,7 +113,7 @@ public class Signin extends AppCompatActivity {
         }
     }
     private void sendUserToNextActivity() {
-        Intent intent=new Intent(Signin.this, Home.class);
+        Intent intent=new Intent(Signin.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 
