@@ -48,7 +48,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
         android:background="#66DEAE"
-        android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+        android:drawableLeft="@drawable/ic_baseline_lock_open_24"
         android:drawablePadding="20dp"
         android:hint="Password"
         android:padding="20dp"
@@ -65,7 +65,7 @@
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
         android:background="#66DEAE"
-        android:drawableLeft="@drawable/ic_baseline_person_outline_24"
+        android:drawableLeft="@drawable/ic_baseline_lock_open_24"
         android:drawablePadding="20dp"
         android:hint="Confirm Password"
         android:padding="20dp"
@@ -92,9 +92,9 @@
         android:layout_below="@id/btnSignup"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="170dp"
         android:text="Already have a account"
         android:textColor="@color/white" />
 
@@ -104,7 +104,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="114dp"
+        android:layout_marginBottom="90dp"
         android:text="Admin"
         android:textColor="@color/white"
         android:textSize="16sp" />
