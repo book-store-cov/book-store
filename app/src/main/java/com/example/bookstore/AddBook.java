@@ -3,6 +3,7 @@ package com.example.bookstore;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -13,13 +14,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.text.TextUtils;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.DownloadListener;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.example.bookstore.MainActivity;
 import com.example.bookstore.databinding.ActivityAddBookBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,21 +30,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.net.URL;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AddBook extends AppCompatActivity {
+public class AddBook extends Fragment {
     ActivityAddBookBinding binding;
 
     StorageReference storageRef ;
@@ -56,12 +54,12 @@ public class AddBook extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityAddBookBinding.inflate(getLayoutInflater());
 
-        setContentView(binding.getRoot());
+
 
         binding.addBookUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +103,7 @@ public class AddBook extends AppCompatActivity {
                 pDate = Cal.get(Calendar.DATE);
                 pMonth = Cal.get(Calendar.MONTH);
                 pYear = Cal.get(Calendar.YEAR);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AddBook.this, android.R.style.Theme_DeviceDefault_Dialog, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddBook.this.requireActivity(), android.R.style.Theme_DeviceDefault_Dialog, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int date) {
                         String fDate = String.valueOf(date);
@@ -129,6 +127,8 @@ public class AddBook extends AppCompatActivity {
             }
         });
 
+        return inflater.inflate(R.layout.activity_add_book, container, false);
+
     }
 
 //    upload image to firebase and get the download url
@@ -149,11 +149,13 @@ public class AddBook extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 e.printStackTrace();
-                Toast.makeText(AddBook.this, "Failed to upload image!", Toast.LENGTH_SHORT ).show();
+               Toast.makeText(AddBook.this.requireActivity(), "Failed to upload image!", Toast.LENGTH_SHORT ).show();
+
+
             }
         });
         }else {
-            Toast.makeText(AddBook.this, "Please complete the form!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddBook.this.requireActivity(), "Please complete the form!", Toast.LENGTH_SHORT).show();
         }
     }
     private void setImageDownloadUri(){
@@ -169,7 +171,7 @@ public class AddBook extends AppCompatActivity {
         downloadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AddBook.this, "Failed to get image!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddBook.this.requireActivity(), "Failed to get image!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -196,8 +198,6 @@ public class AddBook extends AppCompatActivity {
             binding.addBookMainErr.setText("Please enter a valid ISBN!");
         }
         else {
-
-
             Map<String, Object> book = new HashMap<>();
             book.put("title", title);
             book.put("author", author);
@@ -211,14 +211,14 @@ public class AddBook extends AppCompatActivity {
                @Override
                public void onSuccess(Object o) {
 
-                   Intent intent = new Intent(AddBook.this, Home.class);
+                   Intent intent = new Intent(AddBook.this.requireActivity(), MainActivity.class);
                    startActivity(intent);
                }
             }).addOnFailureListener(new OnFailureListener() {
                @Override
                public void onFailure(@NonNull Exception e) {
                    e.printStackTrace();
-                   Toast.makeText(AddBook.this, "Failed to add book!", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(AddBook.this.requireActivity(), "Failed to add book!", Toast.LENGTH_SHORT).show();
 
                }
            });
@@ -239,14 +239,14 @@ public class AddBook extends AppCompatActivity {
 
 //    on selection of image from files, add imageUri to the element
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data ){
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super .onActivityResult(requestCode, resultCode, data);
 
         if(requestCode==100 && data!=null && data.getData()!=null && data.getScheme().equals("content")){
 
             imageUri = data.getData();
             binding.addBookUpload.setImageURI(imageUri);
-            imageName = getFilename(imageUri, AddBook.this);
+            imageName = getFilename(imageUri, AddBook.this.requireActivity());
 
         }
 
