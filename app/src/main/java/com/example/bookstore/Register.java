@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
     TextView alreadyHaveaaccount;
@@ -30,7 +31,6 @@ public class Register extends AppCompatActivity {
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
     TextView admin;
-
     FirebaseAuth mAuth;
     FirebaseUser mUser;
    @SuppressLint("MissingInflatedId")

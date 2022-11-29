@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import android.view.WindowManager;
@@ -34,6 +35,15 @@ public class Signin extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            sendUserToNextActivity();
+        }
+    }
 
 
     @SuppressLint("MissingInflatedId")
@@ -61,7 +71,7 @@ public class Signin extends AppCompatActivity {
         createnewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Signin.this, Register.class));
+                startActivity(new Intent(Signin.this, BookDetails.class));
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {
