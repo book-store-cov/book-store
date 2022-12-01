@@ -54,6 +54,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Home.this, BookListMain.class);
+                Log.d("debug2","home");
                 startActivity(intent);
             }
         });

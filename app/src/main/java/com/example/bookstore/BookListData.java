@@ -1,36 +1,99 @@
 package com.example.bookstore;
 
 
+import android.util.Log;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class BookListData {
 
-    private final String bookName;
-    private final String bookAuthor;
-    private final String bookPrice;
-    private final Integer bookImage;
+    private String bookTitle;
+    private String bookAuthor;
+    private Long bookPrice;
+    private String bookImage;
+    private String ISBN;
+    private Long bookDescription;
+    private String publicationDate;
 
-    public BookListData(String bookName, String bookAuthor, String bookPrice, Integer bookImage) {
-        this.bookName = bookName;
-        this.bookAuthor = bookAuthor;
-        this.bookPrice = bookPrice;
-        this.bookImage = bookImage;
+
+    public BookListData(){
+        Log.d("debug2", "reached no arg constructor");
 
     }
 
-    public String getBookName() {
-        return bookName;
+
+    public BookListData(Object title, Object author, Object price, Object imageURL) {
+        this.bookTitle = (String) title;
+        this.bookAuthor = (String) author;
+        this.bookPrice = (Long) price;
+        this.bookImage = (String) imageURL;
     }
 
-    public String getBookPrice() {
-        return bookPrice;
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
     public String getBookAuthor() {
         return bookAuthor;
     }
 
-    public Integer getBookImage() {
-        return bookImage;
+    public void setBookAuthor(String bookAuthor) {
+        this.bookAuthor = bookAuthor;
     }
+
+    public Long getBookPrice() {
+        return bookPrice;
+    }
+
+    public void setBookPrice(Long bookPrice) {
+        this.bookPrice = bookPrice;
+    }
+
+    public URL getBookImage() throws MalformedURLException {
+        if(bookImage!=null) {
+            return new URL(bookImage);
+        }
+        return new URL("");
+    }
+
+    public void setBookImage(String bookImage) {
+        this.bookImage = bookImage;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+
+    public Long getBookDescription() {
+        return bookDescription;
+    }
+
+    public void setBookDescription(Long bookDescription) {
+        this.bookDescription = bookDescription;
+    }
+
+    public String getPublicationDate() {
+        return publicationDate;
+    }
+
+    public void setPublicationDate(String publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+
+
+
+
+
 
 
 }
