@@ -1,0 +1,56 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="2dp"
+    app:cardCornerRadius="0dp"
+    app:elevation="0dp">
+
+
+    <RelativeLayout
+        android:id="@+id/viewForeground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/layout_padding_small">
+
+        <TextView
+            android:id="@+id/itemName"
+            style="@style/CartItemsTextStyle"
+            android:layout_width="match_parent"
+            android:gravity="start"
+            android:text="@string/label_id"
+            android:layout_toStartOf="@+id/qtyCounterLayout"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/itemID"
+            style="@style/CartItemsTextStyle"
+            android:layout_below="@+id/itemName"
+            android:gravity="start"
+            android:text="@string/label_price"
+            android:textStyle="bold"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/qtyCounterLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/decrement_btn"
+                android:layout_width="76dp"
+                android:layout_height="49dp"
+                android:backgroundTint="@color/primaryColor"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:text="View"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

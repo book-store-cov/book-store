@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SuccessOrder">
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="210dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="64dp"
+        android:text="Order Placed"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.587"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="349dp"
+        android:layout_height="218dp"
+        android:layout_marginEnd="28dp"
+        android:text="Congrats... Your Order Placed Successfully. Your order will delivered within 10 days. For any enquiries please call 07777777770  "
+        android:textAlignment="center"
+        android:textColor="@color/primaryColor"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="117dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/orderhistory_btn"
+        android:layout_width="289dp"
+        android:layout_height="63dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="236dp"
+        android:backgroundTint="#009688"
+        android:text="@string/View_order_history"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_xxx_large"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/layout_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

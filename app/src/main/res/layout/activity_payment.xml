@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Payment">
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="76dp"
+        android:layout_height="34dp"
+        android:text="CASH"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="261dp"
+        tools:layout_editor_absoluteY="207dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/card"
+        android:layout_width="120dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="72dp"
+
+        android:contextClickable="true"
+        android:src="@drawable/ic_baseline_credit_card_24"
+
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="47dp" />
+
+    <TextView
+        android:layout_width="76dp"
+        android:layout_height="34dp"
+        android:text="CARD"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        tools:layout_editor_absoluteX="72dp"
+        tools:layout_editor_absoluteY="207dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/cash"
+        android:layout_width="120dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="72dp"
+
+        android:src="@drawable/ic_baseline_currency_pound_24"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="239dp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linear"
+        android:layout_width="388dp"
+        android:layout_height="347dp"
+        android:layout_marginStart="8dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.676"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/carddetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="CARD DETAILS"
+            android:textAlignment="center"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/addcard"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="Card Number"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/carddetails" />
+
+
+        <EditText
+            android:id="@+id/addcvv"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:hint="CVV "
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addcard" />
+
+        <EditText
+            android:id="@+id/addmy"
+            android:layout_width="256dp"
+            android:layout_height="58dp"
+            android:layout_marginTop="32dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="MM/YY"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.477"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addcvv" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cardsubmit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primaryColor"
+        android:text="SUBMIT"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_xxx_large"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/layout_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="TextContrastCheck" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
