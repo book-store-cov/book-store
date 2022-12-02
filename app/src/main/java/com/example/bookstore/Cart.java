@@ -1,6 +1,7 @@
 package com.example.bookstore;
 
 
+
 import androidx.fragment.app.Fragment;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,15 +13,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 
 import com.example.bookstore.databinding.ActivityCartBinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Handler;
 
 
-public class Cart extends Fragment {
+//public class Cart extends Fragment {
+public class Cart extends AppCompatActivity implements IClickListener {
     private ArrayList<CartList> cartList;
+    IClickListener iClickListener;
+    private TextView priceButton;
+    private int totalPrice = 185;
     ActivityCartBinding binding;
 
     @Override
@@ -28,8 +37,8 @@ public class Cart extends Fragment {
         super.onCreate(savedInstanceState);
         binding = ActivityCartBinding.inflate(getLayoutInflater());
 
-
         final Button button = (Button) binding.proceedToCheckout;
+         priceButton = (TextView) binding.subtotal;
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +48,8 @@ public class Cart extends Fragment {
 
             }
         });
+        getDummyData();
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerCartItems);
 
         RecyclerView recyclerView = (RecyclerView) binding.recyclerCartItems;
         // set a LinearLayoutManager with default vertical orientation
@@ -49,6 +60,41 @@ public class Cart extends Fragment {
         recyclerView.setAdapter(cartAdapter); // set the Adapter to RecyclerView
 
         return inflater.inflate(R.layout.activity_book_list_main, container, false);
+
+    }
+
+
+
+
+    public void getDummyData()
+    { cartList = new ArrayList<>();
+        CartList cartList1=new CartList("book1","Merly1",25,1,1);
+        CartList cartList2=new CartList("book2","Merly2",50,2,1);
+        CartList cartList3=new CartList("book3","Merly3",10,3,1);
+        CartList cartList4=new CartList("book4","Merly4",100,4,1);
+
+        cartList.add(cartList1);
+        cartList.add(cartList2);
+        cartList.add(cartList3);
+        cartList.add(cartList4);
+
+    }
+
+    @Override
+    public void onIncrementClick(int price) {
+        totalPrice = totalPrice+price;
+priceButton.setText(""+totalPrice);
+    }
+
+    @Override
+    public void onDecrementClick(int price) {
+        totalPrice = totalPrice-price;
+        priceButton.setText(""+totalPrice);
+    }
+
+    @Override
+    public void onItemClick() {
+
     }
 
 }

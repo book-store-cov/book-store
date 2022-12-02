@@ -3,6 +3,7 @@ package com.example.bookstore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,12 @@ import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
-
+    IClickListener iClickListener;
     private ArrayList<CartList> cartLists;
 
 
-    public OrderAdapter(OrderList orderList, ArrayList<OrderListView> orderListViews) {
-
+    public OrderAdapter(IClickListener iClickListener, ArrayList<OrderListView> orderListViews) {
+     this.iClickListener = iClickListener;
     }
 
 
@@ -27,15 +28,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.orderlist_singleview, parent, false);
         return new ViewHolder(view);
 
-
-
     }
-
 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.viewButton.setOnClickListener(view -> iClickListener.onItemClick());
     }
 
     // total number of rows
@@ -48,11 +46,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView myTextView;
+        Button viewButton;
 
         ViewHolder(View itemView) {
             super(itemView);
-//            myTextView = itemView.findViewById(R.id.tvAnimalName);
-//            itemView.setOnClickListener(this);
+            viewButton = itemView.findViewById(R.id.view_btn);
+
         }
 
         @Override
@@ -60,11 +59,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 //            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
-
-    // convenience method for getting data at click position
-//    String getItem(int id) {
-////        return mData.get(id);
-//    }
 
     // allows clicks events to be caught
     void setClickListener(ItemClickListener itemClickListener) {
