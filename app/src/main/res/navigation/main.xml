@@ -3,11 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    app:startDestination="@id/navbar_add_book">
-
+    app:startDestination="@id/navbar_home">
     <fragment
         android:id="@+id/navbar_add_book"
         android:name="com.example.bookstore.AddBook"
         android:label="Add book"
         tools:layout="@layout/activity_add_book" />
+    <activity
+        android:id="@+id/navbar_orders"
+        android:name="com.example.bookstore.OrderList"
+        android:label="activity_order_list"
+        tools:layout="@layout/activity_order_list" />
+    <activity
+        android:id="@+id/navbar_cart"
+        android:name="com.example.bookstore.Cart"
+        android:label="activity_cart"
+        tools:layout="@layout/activity_cart" />
+    <activity
+        android:id="@+id/navbar_home"
+        android:name="com.example.bookstore.BookListMain"
+        android:label="activity_book_list_main"
+        tools:layout="@layout/activity_book_list_main" />
 </navigation>

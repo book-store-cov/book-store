@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Cart">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCartItems"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@+id/relLayTotal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/relLayTotal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/cart_singleview"
+        />
+    <RelativeLayout
+        android:id="@+id/relLayTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:paddingStart="@dimen/layout_padding_small"
+        android:paddingTop="2dp"
+        android:paddingEnd="@dimen/layout_padding_small"
+        app:layout_constraintBottom_toTopOf="@+id/proceedToCheckout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/labelTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:paddingTop="@dimen/cart_total_margin"
+            android:textColor="@color/black"
+            android:paddingBottom="@dimen/cart_total_margin"
+            android:text="@string/text_total"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceMedium" />
+        <TextView
+            android:id="@+id/subtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="end"
+            android:paddingTop="@dimen/cart_total_margin"
+            android:paddingBottom="@dimen/cart_total_margin"
+            android:textColor="@color/black"
+            android:text="60.00"
+            android:textStyle="bold"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+    </RelativeLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/proceedToCheckout"
+        android:layout_alignParentBottom="true"
+        android:text="@string/proceed_to_checkout"
+        android:backgroundTint="#009688"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:textSize="@dimen/text_xxx_large"
+        app:iconGravity="textStart"
+        app:iconPadding="@dimen/layout_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
