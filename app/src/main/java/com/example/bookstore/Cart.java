@@ -20,12 +20,10 @@ import android.widget.TextView;
 import com.example.bookstore.databinding.ActivityCartBinding;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.logging.Handler;
 
 
-//public class Cart extends Fragment {
-public class Cart extends AppCompatActivity implements IClickListener {
+
+public class Cart extends Fragment implements IClickListener {
     private ArrayList<CartList> cartList;
     IClickListener iClickListener;
     private TextView priceButton;
@@ -49,9 +47,8 @@ public class Cart extends AppCompatActivity implements IClickListener {
             }
         });
         getDummyData();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerCartItems);
-
         RecyclerView recyclerView = (RecyclerView) binding.recyclerCartItems;
+
         // set a LinearLayoutManager with default vertical orientation
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Cart.this.requireActivity());
         recyclerView.setLayoutManager(linearLayoutManager);

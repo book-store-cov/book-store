@@ -14,8 +14,8 @@ import com.example.bookstore.databinding.ActivityOrderListBinding;
 
 import java.util.ArrayList;
 
-public class OrderList extends AppCompatActivity  implements IClickListener{
-public class OrderList extends Fragment {
+
+public class OrderList extends Fragment implements IClickListener {
     private ArrayList<OrderListView> orderListViews;
     ActivityOrderListBinding binding;
     @Override
@@ -57,7 +57,7 @@ public class OrderList extends Fragment {
 
     @Override
     public void onItemClick() {
-        Intent myIntent = new Intent(OrderList.this, OrderHistory.class);
+        Intent myIntent = new Intent(OrderList.this.requireActivity(), OrderHistory.class);
         this.startActivity(myIntent);
     }
 }
