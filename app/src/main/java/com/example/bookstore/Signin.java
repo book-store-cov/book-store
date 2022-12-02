@@ -41,6 +41,7 @@ public class Signin extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
+            Log.d("debug2", "here inside not null");
             sendUserToNextActivity();
         }
     }
@@ -116,6 +117,7 @@ public class Signin extends AppCompatActivity {
     private void sendUserToNextActivity() {
         Intent intent=new Intent(Signin.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+
         startActivity(intent);
 
     }
