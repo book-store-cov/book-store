@@ -6,52 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".Payment">
 
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="76dp"
-        android:layout_height="34dp"
-        android:text="CASH"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="261dp"
-        tools:layout_editor_absoluteY="207dp"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/card"
-        android:layout_width="120dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="72dp"
-
-        android:contextClickable="true"
-        android:src="@drawable/ic_baseline_credit_card_24"
-
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="47dp" />
-
-    <TextView
-        android:layout_width="76dp"
-        android:layout_height="34dp"
-        android:text="CARD"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="72dp"
-        tools:layout_editor_absoluteY="207dp"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cash"
-        android:layout_width="120dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="72dp"
-
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/ic_baseline_currency_pound_24"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="239dp" />
+        app:layout_constraintBottom_toTopOf="@id/cashlabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/card"
+        app:layout_constraintHeight_percent=".2"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cashlabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@id/cash"
+        app:layout_constraintStart_toStartOf="@id/cash"
+        app:layout_constraintBottom_toTopOf="@id/linear"
+        android:text="CASH"/>
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/card"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_baseline_credit_card_24"
+        app:layout_constraintBottom_toTopOf="@+id/cardLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cash" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/cardLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@id/card"
+        app:layout_constraintBottom_toTopOf="@+id/linear"
+        app:layout_constraintStart_toStartOf="@id/card"
+        android:text="CARD"/>
+
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linear"

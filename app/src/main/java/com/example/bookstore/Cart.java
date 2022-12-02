@@ -19,28 +19,45 @@ public class Cart extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.cart_singleview);
-        increment=findViewById(R.id.increment_btn);
-        decrement=findViewById(R.id.decrement_btn);
-        qtyText=findViewById(R.id.qtyText);
+        setContentView(R.layout.activity_cart);
 
+        final Button button = (Button) this.findViewById(R.id.proceedToCheckout);
 
-        increment.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                count ++;
-                qtyText.setText(""+count);
+
+                Intent i = new Intent(getApplicationContext(),ShipmentDetails.class);
+                startActivity(i);
+
             }
         });
-        decrement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (count<=0) count=0;
-                else
-                    count --;
-                qtyText.setText(""+count);
-            }
-        });
+
+
+
+//            increment = findViewById(R.id.increment_btn);
+//            decrement = findViewById(R.id.decrement_btn);
+//            qtyText = findViewById(R.id.qtyText);
+//
+//
+//        increment.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    count++;
+//                    qtyText.setText("" + count);
+//                }
+//            });
+//            decrement.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (count <= 0) count = 0;
+//                    else
+//                        count--;
+//                    qtyText.setText("" + count);
+//                }
+//            });
+//
 
     }
 

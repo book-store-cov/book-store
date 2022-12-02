@@ -6,59 +6,81 @@
     android:layout_height="match_parent"
     tools:context=".OrderList">
 
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="338dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="36dp"
-        android:text="Your Order "
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold"
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lineartt"
+        android:layout_width="404dp"
+        android:layout_height="129dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="88dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.066"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="338dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="0dp"
+            android:text="Your Order "
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="88dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCartItems"
-        android:layout_width="355dp"
-        android:layout_height="417dp"
-        android:layout_above="@+id/relLayTotal"
+        android:layout_width="414dp"
+        android:layout_height="425dp"
+        android:layout_marginTop="168dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/relLayTotal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.407"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.695"
+        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/orderlist_singleview" />
 
-    <RelativeLayout
-        android:id="@+id/relLayTotal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
-        android:paddingStart="@dimen/layout_padding_small"
-        android:paddingTop="2dp"
-        android:paddingEnd="@dimen/layout_padding_small"
-        app:layout_constraintBottom_toTopOf="@+id/shopping_btn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/shopping_btn"
-        android:layout_width="271dp"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lineartb"
+        android:layout_width="252dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#32BFB2"
-        android:text="Return to Shopping"
-        android:textColor="@color/white"
+        android:layout_marginStart="88dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="75dp" />
+        app:layout_constraintHeight_percent=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.954"
+        tools:ignore="MissingConstraints">
+
+        <Button
+            android:id="@+id/shopping_btn"
+            android:layout_width="271dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#32BFB2"
+            android:text="Return to Shopping"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_editor_absoluteY="50dp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="75dp" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

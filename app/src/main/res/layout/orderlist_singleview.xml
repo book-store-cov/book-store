@@ -38,7 +38,7 @@
             android:layout_alignParentEnd="true">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/decrement_btn"
+                android:id="@+id/view_btn"
                 android:layout_width="76dp"
                 android:layout_height="49dp"
                 android:backgroundTint="@color/primaryColor"
