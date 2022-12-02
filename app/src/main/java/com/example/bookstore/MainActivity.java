@@ -12,10 +12,13 @@ import androidx.navigation.ui.NavigationUI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 
 import com.example.bookstore.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,13 +30,11 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
 
+
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser() ;
     String userId = user.getUid();
 
     DatabaseReference dbRef= FirebaseDatabase.getInstance().getReference();
-//    DatabaseReference adminRef = dbRef.child("admin").child(userId).child("overview");
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,33 +43,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
 
-        binding.navIcon.setOnClickListener(new View.OnClickListener() {
+
+        binding.bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                binding.mainDrawer.openDrawer(GravityCompat.START);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    case R.id.navbar_home:
+                        Intent i1 = new Intent(MainActivity.this,BookListMain.class);
+                        startActivity(i1);
+                        break;
+                    case R.id.navbar_orders:
+                        Intent i2 = new Intent(MainActivity.this, OrderList.class);
+                        startActivity(i2);
+                        break;
+                    case R.id.navbar_cart:
+                        Intent i3 = new Intent(MainActivity.this, Cart.class);
+                        startActivity(i3);
+                        break;
+                    case R.id.navbar_logout:
+//                        Logout;
+                        break;
+                }
+                return true;
             }
         });
 
 
-//        binding.addBookBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, AddBook.class);
-//                startActivity(intent);
-//            }
-//        });
 
-        binding.mainNavigation.setItemIconTintList(null);
 
-        NavController navController = Navigation.findNavController(this, R.id.main_content);
-        NavigationUI.setupWithNavController(binding.mainNavigation, navController);
-
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                binding.mainTitle.setText(navDestination.getLabel());
-            }
-        });
 
     }
 

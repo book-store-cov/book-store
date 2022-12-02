@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="2dp"
+    app:cardCornerRadius="0dp"
+    app:elevation="0dp">
+
+    <RelativeLayout
+        android:id="@+id/viewBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/viewForeground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/layout_padding_small">
+
+        <TextView
+            android:id="@+id/booktitle"
+            style="@style/CartItemsTextStyle"
+            android:layout_width="match_parent"
+            android:gravity="start"
+            android:text="@string/title"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/quantity"
+            style="@style/CartItemsTextStyle"
+            android:layout_below="@+id/booktitle"
+            android:gravity="start"
+            android:text="Quantity "
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/price"
+            style="@style/CartItemsTextStyle"
+            android:layout_below="@+id/quantity"
+            android:gravity="start"
+            android:text="Total Price "
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+
+
+
+
+
+

@@ -10,7 +10,7 @@
     <color name="backgroundColor">#E1E8E5</color>
     <color name="primaryColor">#66deae</color>
     <color name="allBooks">#FFA726</color>
-    <color name="soldBooks">#66BB6A</color>
+    <color name="primaryGreen">#66BB6A</color>
     <color name="error">#EF5350</color>
 
 
