@@ -55,7 +55,8 @@ public class Proceed extends AppCompatActivity {
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(Proceed.this,"Selected Option: No",Toast.LENGTH_SHORT).show();
+                                Intent i = new Intent(getApplicationContext(),Proceed.class);
+                                startActivity(i);
                             }
                         });
                 //Creating dialog box

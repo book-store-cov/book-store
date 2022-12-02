@@ -1,14 +1,19 @@
 package com.example.bookstore;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class OrderHistory extends AppCompatActivity {
 
+    private ArrayList<OrderHistoryList> orderHistoryLists;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,5 +42,16 @@ public class OrderHistory extends AppCompatActivity {
 
             }
         });
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerCartItemsp);
+        // set a LinearLayoutManager with default vertical orientation
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        //  call the constructor of CustomAdapter to send the reference and data to Adapter
+        OrderHistoryAdapter orderHistoryAdapter = new OrderHistoryAdapter(OrderHistory.this, orderHistoryLists);
+        recyclerView.setAdapter(orderHistoryAdapter); // set the Adapter to RecyclerView
+
+
+
     }
 }

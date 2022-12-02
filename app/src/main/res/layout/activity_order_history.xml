@@ -203,7 +203,7 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerCartItems"
+        android:id="@+id/recyclerCartItemsp"
         android:layout_width="399dp"
         android:layout_height="222dp"
         android:layout_marginTop="348dp"

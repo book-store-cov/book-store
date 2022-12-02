@@ -3,22 +3,18 @@ package com.example.bookstore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
-
-
-    private ArrayList<CartList> cartLists;
+public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapter.ViewHolder> {
 
 
+    private ArrayList<OrderHistoryList> orderHistoryLists;
 
-    public CartAdapter(Cart cart, ArrayList<CartList> cartList) {
+    public OrderHistoryAdapter(OrderHistory orderHistory, ArrayList<OrderHistoryList> orderHistoryLists) {
 
     }
 
@@ -26,7 +22,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_singleview, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.orderhistory_singleview, parent, false);
         return new ViewHolder(view);
 
 
