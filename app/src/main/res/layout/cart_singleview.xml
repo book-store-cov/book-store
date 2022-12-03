@@ -15,18 +15,18 @@
         android:padding="@dimen/layout_padding_small">
 
         <TextView
-            android:id="@+id/itemName"
+            android:id="@+id/bookName"
             style="@style/CartItemsTextStyle"
             android:layout_width="match_parent"
+            android:layout_toStartOf="@+id/qtyCounterLayout"
             android:gravity="start"
             android:text="@string/label_item_name"
-            android:layout_toStartOf="@+id/qtyCounterLayout"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/itemID"
+            android:id="@+id/bookId"
             style="@style/CartItemsTextStyle"
-            android:layout_below="@+id/itemName"
+            android:layout_below="@+id/bookName"
             android:gravity="start"
             android:text="Item ID" />
 
@@ -80,9 +80,9 @@
         <TextView
             android:id="@+id/qtySellingPrice"
             style="@style/CartItemsTextStyle"
+            android:layout_below="@+id/qtyCounterLayout"
             android:layout_alignParentEnd="true"
             android:gravity="end"
-            android:layout_below="@+id/qtyCounterLayout"
             android:text="1 x 20" />
 
         <TextView

@@ -5,13 +5,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -27,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private ActivityMainBinding binding;
 
 
@@ -41,38 +44,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-
-
-        binding.bottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()){
-                    case R.id.navbar_home:
-                        Intent i1 = new Intent(MainActivity.this,BookListMain.class);
-                        startActivity(i1);
-                        break;
-                    case R.id.navbar_orders:
-                        Intent i2 = new Intent(MainActivity.this, OrderList.class);
-                        startActivity(i2);
-                        break;
-                    case R.id.navbar_cart:
-                        Intent i3 = new Intent(MainActivity.this, Cart.class);
-                        startActivity(i3);
-                        break;
-                    case R.id.navbar_logout:
-//                        Logout;
-                        break;
-                }
-                return true;
-            }
-        });
-
-
-
-
-
+        binding.bottomNav.setOnItemSelectedListener(this);
+        loadFragment(new BookListMain());
     }
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment fragment = null;
+        switch(item.getItemId()){
+            case R.id.navbar_orders:
+                fragment = new OrderList();
+                break;
+            case R.id.navbar_cart:
+                fragment = new Cart();
+                break;
+            case R.id.navbar_logout:
+//                        Logout;
+                break;
+            case R.id.navbar_home:
+                fragment = new BookListMain();
+                break;
+
+        }
+        if(fragment!=null){
+            loadFragment(fragment);
+        }
+        return true;
+    }
+    void loadFragment(Fragment fragment) {
+        //to attach fragment
+        Log.d("debug2", "fragment load:"+fragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_layout, fragment).commit();
+    }
+
 
 
 
