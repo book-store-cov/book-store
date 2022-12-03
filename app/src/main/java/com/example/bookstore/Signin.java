@@ -72,7 +72,7 @@ public class Signin extends AppCompatActivity {
         createnewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Signin.this, Register.class));
+                startActivity(new Intent(Signin.this, BookDetails.class));
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {

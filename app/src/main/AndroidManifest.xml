@@ -101,6 +101,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".BookDetails"
+            android:exported="true" android:label="bookstore-addBook">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Register"
             android:exported="true"
             android:label="bookstore-register">
@@ -124,6 +131,7 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
     </application>
 
 </manifest>

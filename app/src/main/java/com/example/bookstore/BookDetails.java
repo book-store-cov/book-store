@@ -1,26 +1,174 @@
 package com.example.bookstore;
 
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-
 import com.example.bookstore.databinding.ActivityBookDetailsBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 public class BookDetails extends AppCompatActivity {
 
     ActivityBookDetailsBinding binding;
+    TextView isbnNumDisplay,bookName,authorNameDisplay,publicationNameDisplay,bookDescriptionDisplay,rate;
+    ImageView bookImage;
+    Button button;
 
+
+    FirebaseDatabase fDatabse;
+    DatabaseReference dRef;
+
+
+    @SuppressLint("MissingInflatedId")
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityBookDetailsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
+        setContentView(R.layout.activity_book_details);
+
+
+
+
+        bookName=findViewById(R.id.bookName);
+        bookDescriptionDisplay=findViewById(R.id.bookDescriptionDisplay);
+        button=findViewById(R.id.button);
+        bookImage=findViewById(R.id.bookImage);
+
+
+        fDatabse = FirebaseDatabase.getInstance();
+        dRef=fDatabse.getReference().child("books").child("1234567890123");
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BookDetails.this, AddBook.class));
+            }
+        });
+
+
+
+        dRef.child("ISBN").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    isbnNumDisplay.setText(dataSnapshot.getValue(String.class));
+                }else{
+                    isbnNumDisplay.setText("Not Found");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        dRef.child("title").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    bookName.setText(dataSnapshot.getValue(String.class));
+                }else{
+                    bookName.setText("Not Found");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        dRef.child("author").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    authorNameDisplay.setText(dataSnapshot.getValue(String.class));
+                }else{
+                    authorNameDisplay.setText("Not Found");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        dRef.child("publicationDate").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    publicationNameDisplay.setText(dataSnapshot.getValue(String.class));
+                }else{
+                    publicationNameDisplay.setText("Not Found");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        dRef.child("description").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    bookDescriptionDisplay.setText(dataSnapshot.getValue(String.class));
+                }else{
+                    bookDescriptionDisplay.setText("Not Found");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        dRef.child("price").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                rate.setText(dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        dRef.child("imageURL").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               String link=dataSnapshot.getValue(String.class);
+                Picasso.get().load(link).into(bookImage);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         String ISBN = getIntent().getExtras().getString("ISBN");
         Log.d("debug2", "ISBN VALUE: "+ISBN);
 
@@ -58,9 +206,9 @@ public class BookDetails extends AppCompatActivity {
 
 
 
+
     }
 
-
-
-
 }
+
+

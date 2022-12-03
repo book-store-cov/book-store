@@ -1,5 +1,6 @@
 package com.example.bookstore;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
 
 import android.view.WindowManager;
@@ -33,6 +33,7 @@ public class Register extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
 
+
     @Override
     public void onStart() {
         super.onStart();
@@ -44,7 +45,7 @@ public class Register extends AppCompatActivity {
     }
 
 
-
+    @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class Register extends AppCompatActivity {
 
        alreadyHaveaaccount=findViewById(R.id.alreadyHaveaaccount);
 
+
        inputEmail=findViewById(R.id.inputEmail);
        inputPassword=findViewById(R.id.inputPassword);
        inputConfirmPassword=findViewById(R.id.inputConfirmPassword);
@@ -60,6 +62,7 @@ public class Register extends AppCompatActivity {
        progressDialog= new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
+
 
        alreadyHaveaaccount.setOnClickListener(new View.OnClickListener() {
            @Override

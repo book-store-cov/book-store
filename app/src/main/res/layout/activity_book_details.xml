@@ -19,11 +19,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/bookImage"
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/bookImage"
         android:layout_width="208dp"
         android:layout_height="185dp"
         android:layout_marginTop="30dp"
@@ -35,7 +35,7 @@
         app:srcCompat="@drawable/cover" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/bookDescriptionDisplay"
         android:layout_width="375dp"
         android:layout_height="80dp"
         android:layout_marginTop="20dp"
