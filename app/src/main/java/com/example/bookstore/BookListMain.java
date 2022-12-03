@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +25,9 @@ import java.util.HashMap;
 
 public class BookListMain extends AppCompatActivity {
 
+//to be deleted
+    Button b1;
+
     DatabaseReference database;
     ArrayList<BookListData> bookListTemp;
 
@@ -31,6 +36,25 @@ public class BookListMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_list_main);
+
+
+
+
+        //to be deleted
+
+        b1 = findViewById(R.id.fake);
+        b1.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(BookListMain.this,Cart.class);
+                        startActivity(i);
+                    }
+                });
+
+
+
+
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
