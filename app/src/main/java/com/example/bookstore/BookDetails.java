@@ -21,6 +21,10 @@ public class BookDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityBookDetailsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        String ISBN = getIntent().getExtras().getString("ISBN");
+        Log.d("debug2", "ISBN VALUE: "+ISBN);
+
+//        Bottom navigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setSelectedItemId(R.id.navbar_home);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

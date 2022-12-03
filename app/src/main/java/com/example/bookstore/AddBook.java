@@ -103,6 +103,7 @@ public class AddBook extends AppCompatActivity {
         binding.addBookUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 addImage();
             }
         });

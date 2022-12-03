@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.bookstore.databinding.ActivityBookListMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.bookstore.bookList.OnClickListener;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
@@ -33,13 +34,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class BookListMain extends AppCompatActivity {
+public class BookListMain extends AppCompatActivity implements OnClickListener {
 
     ActivityBookListMainBinding binding;
     DatabaseReference database;
     ArrayList<BookListData> bookListTemp;
-
-
+    OnClickListener onClickListener;
 
     @Override
         protected void onCreate( Bundle savedInstanceState) {
@@ -63,15 +63,12 @@ public class BookListMain extends AppCompatActivity {
         recyclerView.setAdapter(bookListAdapter);
 
 
-
-
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     HashMap<String, Object> data = (HashMap<String, Object>) dataSnapshot.getValue();
-                    BookListData bookList = new BookListData(data.get("title"), data.get("author"), data.get("price"), data.get("imageURL"));
+                    BookListData bookList = new BookListData(data.get("title"), data.get("author"), data.get("price"), data.get("imageURL"), data.get("ISBN"));
                     bookListTemp.add(bookList);
                 }
 
@@ -124,6 +121,24 @@ public class BookListMain extends AppCompatActivity {
 
 
     }
+
+    private String getBookId(int position){
+        BookListData data = bookListTemp.get(position);
+        return data.getISBN();
+    }
+
+
+
+    @Override
+    public void onBookClick(View view, int position){
+
+        Intent intent = new Intent(this, BookDetails.class);
+
+        intent.putExtra("ISBN", getBookId(position));
+        startActivity(intent);
+
+    }
+
 
 
 }
