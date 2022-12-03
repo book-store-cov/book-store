@@ -1,173 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".BookDetails">
 
 
     <TextView
-        android:id="@+id/bookName"
-        android:layout_width="394dp"
-        android:layout_height="38dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="65dp"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:id="@+id/textView13"
+        android:layout_width="217dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="52dp"
+        android:text="Product Description"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.123"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/bookImage"
-        android:layout_width="389dp"
-        android:layout_height="229dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginTop="116dp"
+        android:id="@+id/imageView2"
+        android:layout_width="208dp"
+        android:layout_height="185dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="TODO"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
         app:srcCompat="@drawable/cover" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="375dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="8dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/authorNameDisplay"
-        android:layout_width="180dp"
-        android:layout_height="31dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="215dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="309dp"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/authorName"
-        android:layout_width="149dp"
-        android:layout_height="31dp"
-        android:layout_alignStart="@+id/productDetails"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="307dp"
-        android:text="Author Name" />
-
-    <TextView
-        android:id="@+id/rate"
-        android:layout_width="110dp"
-        android:layout_height="46dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="61dp"
-        android:layout_marginBottom="18dp"
-        android:text="TextView"
-        android:textAlignment="viewStart"
-        android:textColor="#000000"
+        android:id="@+id/textView6"
+        android:layout_width="357dp"
+        android:layout_height="38dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Creative Calling"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
+        tools:ignore="MissingConstraints" />
+
+
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="509dp"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryGreen"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="-5dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="84dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="499.00"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="142dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="36dp"
         android:layout_marginBottom="20dp"
-        android:background="#66DEAE"
-        android:text="Add to cart" />
+        android:backgroundTint="@color/primaryGreen"
+        android:text="Buy"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.936"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        tools:ignore="MissingConstraints" />
 
 
-    <TextView
-        android:id="@+id/productDetails"
-        android:layout_width="257dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/bookImage"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="359dp"
-        android:text="Product Details"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/bookDescription"
-        android:layout_width="257dp"
-        android:layout_height="29dp"
-        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginBottom="164dp"
-        android:text="Description"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:background="@color/primaryGreen"
+        app:itemTextColor="@drawable/menu_item_active"
+        app:itemIconTint="@drawable/menu_item_active"
+        app:menu="@menu/navigation_menu"
+        android:id="@+id/bottom_nav"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
-        android:id="@+id/bookDescriptionDisplay"
-        android:layout_width="362dp"
-        android:layout_height="78dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginBottom="78dp"
-        android:text="TextView" />
+    <RelativeLayout
+        android:layout_width="169dp"
+        android:layout_height="211dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.906"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
 
-    <TextView
-        android:id="@+id/isbnNumDisplay"
-        android:layout_width="180dp"
-        android:layout_height="31dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="263dp"
-        android:text="TextView" />
+        <TextView
+            android:id="@+id/author_name"
+            android:layout_width="133dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/product_details"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="19dp"
+            android:text="Author: xyz"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="198dp" />
 
-    <TextView
-        android:id="@+id/publicationName"
-        android:layout_width="149dp"
-        android:layout_height="31dp"
-        android:layout_alignStart="@+id/isbnNum"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="3dp"
-        android:layout_marginBottom="213dp"
-        android:text="Publication" />
+        <TextView
+            android:id="@+id/product_details"
+            android:layout_width="154dp"
+            android:layout_height="28dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="7dp"
+            android:layout_marginEnd="8dp"
+            android:text="Product Details"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteY="247dp" />
 
-    <TextView
-        android:id="@+id/isbnNum"
-        android:layout_width="149dp"
-        android:layout_height="31dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginBottom="261dp"
-        android:text="ISBN Number" />
+        <TextView
+            android:id="@+id/ISBN_value"
+            android:layout_width="136dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/publication_date"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="14dp"
+            android:text="ISBN: 585665"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="240dp" />
 
-    <TextView
-        android:id="@+id/publicationNameDisplay"
-        android:layout_width="180dp"
-        android:layout_height="31dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="213dp"
-        android:text="TextView" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="39dp"
-        android:layout_height="34dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="17dp"
-        android:layout_marginBottom="28dp"
-        app:srcCompat="@drawable/ic_baseline_currency_pound_24" />
+        <TextView
+            android:id="@+id/publication_date"
+            android:layout_width="133dp"
+            android:layout_height="27dp"
+            android:layout_below="@+id/author_name"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="20dp"
+            android:text="Publication:xyz"
+            tools:ignore="MissingConstraints" />
 
 
-</RelativeLayout>
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

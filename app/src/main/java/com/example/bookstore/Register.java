@@ -22,7 +22,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class Register extends AppCompatActivity {
     TextView alreadyHaveaaccount;
@@ -30,11 +29,24 @@ public class Register extends AppCompatActivity {
     Button btnSignup;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
-    TextView admin;
+
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-   @SuppressLint("MissingInflatedId")
-   @Override
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+
+            sendUserToNextActivity();
+        }
+    }
+
+
+    @SuppressLint("MissingInflatedId")
+    @Override
     public void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_register);
@@ -112,7 +124,7 @@ public class Register extends AppCompatActivity {
    }
 
     private void sendUserToNextActivity() {
-        Intent intent=new Intent(Register.this, MainActivity.class);
+        Intent intent=new Intent(Register.this, BookListMain.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 

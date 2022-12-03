@@ -10,7 +10,14 @@
     <string name = "nav_home">Home</string>
     <string name = "nav_orders">Orders</string>
     <string name = "nav_books">Books</string>
-    <string name = "nav_profile">Profile</string>
     <string name = "nav_cart">Cart</string>
     <string name="nav_add_book">Add book</string>
+    <string name="label_item_name">Item Name</string>
+    <string name="proceed_to_checkout">Checkout</string>
+    <string name="text_total">Total</string>
+    <string name="View_order_history">View Order History</string>
+    <string name="title">Book Title</string>
+    <string name="label_id">Order ID</string>
+    <string name="label_price">Total Price</string>
+    <string name="logout">Logout</string>
 </resources>
