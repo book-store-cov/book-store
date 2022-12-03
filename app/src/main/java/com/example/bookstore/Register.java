@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import android.view.WindowManager;
@@ -31,7 +32,20 @@ public class Register extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-   @Override
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+
+            sendUserToNextActivity();
+        }
+    }
+
+
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_register);
@@ -101,7 +115,7 @@ public class Register extends AppCompatActivity {
    }
 
     private void sendUserToNextActivity() {
-        Intent intent=new Intent(Register.this, MainActivity.class);
+        Intent intent=new Intent(Register.this, BookListMain.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 

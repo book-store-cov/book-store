@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Cart">
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    tools:context=".Cart"
     >
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCartItems"
@@ -63,20 +62,36 @@
             android:textStyle="bold" />
 
     </RelativeLayout>
+
     <androidx.appcompat.widget.AppCompatButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/proceedToCheckout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="@color/primaryGreen"
         android:text="@string/proceed_to_checkout"
-        android:backgroundTint="#009688"
-        android:textColor="@color/white"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="@dimen/text_xxx_large"
         app:iconGravity="textStart"
         app:iconPadding="@dimen/layout_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primaryGreen"
+        app:itemTextColor="@drawable/menu_item_active"
+        app:itemIconTint="@drawable/menu_item_active"
+        app:menu="@menu/navigation_menu"
+        android:id="@+id/bottom_nav"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 
 

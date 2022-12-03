@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,21 +14,21 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
 
-<!--        <fragment-->
-<!--            android:name=".BookListMain"-->
-<!--            android:exported="true"-->
-<!--            android:label="bookstore-booklist">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-<!--        </fragment>-->
-<!--        <fragment-->
-<!--            android:name=".OrderList"-->
-<!--            android:exported="true">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-<!--        </fragment>-->
+        <activity
+            android:name=".BookListMain"
+            android:exported="true"
+            android:label="bookstore-booklist">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".OrderList"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".OrderHistory"
             android:exported="true">
@@ -63,13 +64,13 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-<!--        <fragment-->
-<!--            android:name=".Cart"-->
-<!--            android:exported="true">-->
-<!--            <meta-data-->
-<!--                android:name="android.app.lib_name"-->
-<!--                android:value="" />-->
-<!--        </fragment>-->
+        <activity
+            android:name=".Cart"
+            android:exported="true">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".SplashScreen"
             android:exported="true"
@@ -87,14 +88,6 @@
             android:name=".AddBook"
             android:exported="true"
             android:label="bookstore-addBook">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="bookstore-home">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".OrderList">
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    tools:context=".OrderList"
     >
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/lineartt"
         android:layout_width="404dp"
         android:layout_height="129dp"
-        android:layout_marginStart="4dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066"
+        app:layout_constraintVertical_bias="0.058"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -41,31 +40,30 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerCartItemso"
+        android:id="@+id/recyclerCartItems"
         android:layout_width="414dp"
         android:layout_height="425dp"
         android:layout_marginTop="168dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.407"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/orderlist_singleview" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/lineartb"
         android:layout_width="252dp"
         android:layout_height="55dp"
-        android:layout_marginStart="88dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.954"
+        app:layout_constraintVertical_bias="0.729"
         tools:ignore="MissingConstraints">
 
         <Button
@@ -79,12 +77,24 @@
             android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerCartItems"
             app:layout_editor_absoluteY="50dp"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="75dp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primaryGreen"
+        app:itemTextColor="@drawable/menu_item_active"
+        app:itemIconTint="@drawable/menu_item_active"
+        app:menu="@menu/navigation_menu"
+        android:id="@+id/bottom_nav"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
