@@ -9,17 +9,17 @@
         android:name="com.example.bookstore.AddBook"
         android:label="Add book"
         tools:layout="@layout/activity_add_book" />
-    <activity
+    <fragment
         android:id="@+id/navbar_orders"
         android:name="com.example.bookstore.OrderList"
         android:label="activity_order_list"
         tools:layout="@layout/activity_order_list" />
-    <activity
+    <fragment
         android:id="@+id/navbar_cart"
         android:name="com.example.bookstore.Cart"
         android:label="activity_cart"
         tools:layout="@layout/activity_cart" />
-    <activity
+    <fragment
         android:id="@+id/navbar_home"
         android:name="com.example.bookstore.BookListMain"
         android:label="activity_book_list_main"

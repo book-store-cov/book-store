@@ -18,7 +18,7 @@ public class BookListData {
 
 
     public BookListData(){
-        Log.d("debug2", "reached no arg constructor");
+
 
     }
 

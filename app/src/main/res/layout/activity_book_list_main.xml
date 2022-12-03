@@ -1,17 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".BookListMain"
     android:orientation="vertical"
     android:background="#BDBDBD"
-    android:layout_height="match_parent"
-    tools:context=".BookListMain">
 
-      <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_margin="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    >
+
+
+      <RelativeLayout
+          android:id="@+id/list_layout"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          app:layout_constraintBottom_toTopOf="@+id/bottom_nav">
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:paddingBottom="50dp"
+
+                />
+            </RelativeLayout>
+
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_nav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="1dp"
+                android:background="@color/primaryGreen"
+                app:itemIconTint="@drawable/menu_item_active"
+                app:itemTextColor="@drawable/menu_item_active"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:menu="@menu/navigation_menu" />
+      </RelativeLayout>
+
+
+
 
 </LinearLayout>
