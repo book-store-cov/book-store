@@ -44,12 +44,9 @@ public class BookDetails extends AppCompatActivity {
 
 
 
-        isbnNumDisplay=findViewById(R.id.isbnNumDisplay);
+
         bookName=findViewById(R.id.bookName);
-        authorNameDisplay=findViewById(R.id.authorNameDisplay);
-        publicationNameDisplay=findViewById(R.id.publicationNameDisplay);
         bookDescriptionDisplay=findViewById(R.id.bookDescriptionDisplay);
-        rate=findViewById(R.id.rate);
         button=findViewById(R.id.button);
         bookImage=findViewById(R.id.bookImage);
 

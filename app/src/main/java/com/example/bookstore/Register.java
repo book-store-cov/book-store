@@ -53,7 +53,7 @@ public class Register extends AppCompatActivity {
        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
        alreadyHaveaaccount=findViewById(R.id.alreadyHaveaaccount);
-       admin=findViewById(R.id.admin);
+
 
        inputEmail=findViewById(R.id.inputEmail);
        inputPassword=findViewById(R.id.inputPassword);
@@ -63,12 +63,6 @@ public class Register extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
 
-        admin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Register.this,Signin.class));
-            }
-        });
 
        alreadyHaveaaccount.setOnClickListener(new View.OnClickListener() {
            @Override
