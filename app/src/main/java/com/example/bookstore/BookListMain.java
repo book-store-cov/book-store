@@ -39,7 +39,6 @@ public class BookListMain extends AppCompatActivity {
     DatabaseReference database;
     ArrayList<BookListData> bookListTemp;
 
-//    private FirebaseRecyclerAdapter<BookListData,  BookListAdapter.ViewHolder> firebaseRecyclerAdapter;
 
 
     @Override
@@ -59,34 +58,31 @@ public class BookListMain extends AppCompatActivity {
         recyclerView.setLayoutManager(llm);
         recyclerView.setHasFixedSize(true);
 
-//        FirebaseRecyclerOptions<BookListData> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<BookListData>()
-//                .setQuery(database, BookListData.class)
-//                .build();
-//
-//        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<BookListData, BookListAdapter.ViewHolder>(firebaseRecyclerOptions);
-//        recyclerView.setAdapter(firebaseRecyclerAdapter);
-//
+        BookListAdapter bookListAdapter = new BookListAdapter(bookListTemp, this);
+
+        recyclerView.setAdapter(bookListAdapter);
 
 
 
-//        database.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                    HashMap<String, Object> data = (HashMap<String, Object>) dataSnapshot.getValue();
-//                    BookListData bookList = new BookListData(data.get("title"), data.get("author"), data.get("price"), data.get("imageURL"));
-//                    bookListTemp.add(bookList);
-//                }
-//
-//                bookListAdapter.notifyDataSetChanged();
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
+
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    HashMap<String, Object> data = (HashMap<String, Object>) dataSnapshot.getValue();
+                    BookListData bookList = new BookListData(data.get("title"), data.get("author"), data.get("price"), data.get("imageURL"));
+                    bookListTemp.add(bookList);
+                }
+
+                bookListAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
 
 
