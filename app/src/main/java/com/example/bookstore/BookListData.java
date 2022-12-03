@@ -23,11 +23,12 @@ public class BookListData {
     }
 
 
-    public BookListData(Object title, Object author, Object price, Object imageURL) {
+    public BookListData(Object title, Object author, Object price, Object imageURL, Object ISBN) {
         this.bookTitle = (String) title;
         this.bookAuthor = (String) author;
         this.bookPrice = (Long) price;
         this.bookImage = (String) imageURL;
+        this.ISBN = (String) ISBN;
     }
 
     public String getBookTitle() {
