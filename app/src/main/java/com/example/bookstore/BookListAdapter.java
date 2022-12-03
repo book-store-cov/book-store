@@ -87,5 +87,37 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
             bookPrice = itemView.findViewById(R.id.bookPrice);
 
         }
+
+        public void setBookAuthor(TextView bookAuthor) {
+            this.bookAuthor = bookAuthor;
+        }
+
+        public void setBookImage(ImageView bookImage) {
+            this.bookImage = bookImage;
+        }
+
+        public void setBookName(TextView bookName) {
+            this.bookName = bookName;
+        }
+
+        public void setBookPrice(TextView bookPrice) {
+            this.bookPrice = bookPrice;
+        }
+
+        public ImageView getBookImage() {
+            return bookImage;
+        }
+
+        public TextView getBookAuthor() {
+            return bookAuthor;
+        }
+
+        public TextView getBookName() {
+            return bookName;
+        }
+
+        public TextView getBookPrice() {
+            return bookPrice;
+        }
     }
 }

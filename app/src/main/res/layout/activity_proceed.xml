@@ -18,7 +18,7 @@
         app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118"
+        app:layout_constraintVertical_bias="0.057"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -55,6 +55,7 @@
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.201" />
+
         <TextView
             android:id="@+id/textView15"
             android:layout_width="177dp"
@@ -80,8 +81,6 @@
             app:layout_constraintVertical_bias="0.254" />
 
 
-
-
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -97,7 +96,7 @@
         app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.119"
+        app:layout_constraintVertical_bias="0.057"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -180,8 +179,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.677"
+        app:layout_constraintTop_toBottomOf="@+id/lineartl"
+        app:layout_constraintVertical_bias="0.057"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -258,23 +257,26 @@
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearb"
         android:layout_width="404dp"
         android:layout_height="90dp"
-        android:layout_marginStart="4dp"
         android:gravity="left"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/proceedbutton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints">
+
         <TextView
-            android:id="@+id/textView29"
-            android:layout_width="295dp"
+            android:id="@+id/total_amt_to_pay"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginStart="16dp"
             android:text="TOTAL AMOUNT TO PAY :"
@@ -283,40 +285,48 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="569dp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/lineartb"
-        android:layout_width="225dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="84dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent=".5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.988"
-        tools:ignore="MissingConstraints">
-
-        <Button
-            android:id="@+id/proceedbutton"
-            android:layout_width="271dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="#32BFB2"
-            android:text="Proceed"
-            android:textColor="@color/white"
-            android:textSize="20dp"
+        <TextView
+            android:id="@+id/amount_proceed"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:text="amount"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_editor_absoluteY="50dp"
+            app:layout_constraintStart_toEndOf="@+id/total_amt_to_pay"
             tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="75dp" />
-
+            tools:layout_editor_absoluteY="569dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/proceedbutton"
+        android:layout_width="271dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/primaryGreen"
+        android:text="Proceed"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_editor_absoluteY="50dp"
+        tools:ignore="MissingConstraints" />
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primaryGreen"
+        app:itemTextColor="@drawable/menu_item_active"
+        app:itemIconTint="@drawable/menu_item_active"
+        app:menu="@menu/navigation_menu"
+        android:id="@+id/bottom_nav"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
