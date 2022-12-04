@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.bookstore.bookList.OnClickListener;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -24,12 +25,14 @@ import java.util.ArrayList;
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHolder> {
 
     ArrayList<BookListData> bookListData;
-    Context context;
+    OnClickListener listener;
     View view;
 
-    public BookListAdapter(ArrayList<BookListData> bookListData, Context activity) {
+
+    public BookListAdapter(ArrayList<BookListData> bookListData, OnClickListener listener) {
         this.bookListData = bookListData;
-        this.context = activity;
+        this.listener = listener;
+
     }
 
     @NonNull
@@ -46,6 +49,10 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //final BookListData bookListDataArray = bookListData[position];
+
+
+
+
         BookListData bookListDataArray = bookListData.get(position);
         if(bookListDataArray.getBookTitle()!=null) {
             holder.bookName.setText(bookListDataArray.getBookTitle());
@@ -63,8 +70,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(context, bookListDataArray.getBookTitle(), Toast.LENGTH_SHORT).show();
+                listener.onBookClick(view, holder.getAbsoluteAdapterPosition());
             }
         });
     }
@@ -86,6 +92,38 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
             bookAuthor = itemView.findViewById(R.id.bookAuthor);
             bookPrice = itemView.findViewById(R.id.bookPrice);
 
+        }
+
+        public void setBookAuthor(TextView bookAuthor) {
+            this.bookAuthor = bookAuthor;
+        }
+
+        public void setBookImage(ImageView bookImage) {
+            this.bookImage = bookImage;
+        }
+
+        public void setBookName(TextView bookName) {
+            this.bookName = bookName;
+        }
+
+        public void setBookPrice(TextView bookPrice) {
+            this.bookPrice = bookPrice;
+        }
+
+        public ImageView getBookImage() {
+            return bookImage;
+        }
+
+        public TextView getBookAuthor() {
+            return bookAuthor;
+        }
+
+        public TextView getBookName() {
+            return bookName;
+        }
+
+        public TextView getBookPrice() {
+            return bookPrice;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.bookstore;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,13 +32,28 @@ public class Register extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-   @Override
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+
+            sendUserToNextActivity();
+        }
+    }
+
+
+    @SuppressLint("MissingInflatedId")
+    @Override
     public void onCreate(Bundle savedInstanceState) {
        super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_register);
        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
        alreadyHaveaaccount=findViewById(R.id.alreadyHaveaaccount);
+
 
        inputEmail=findViewById(R.id.inputEmail);
        inputPassword=findViewById(R.id.inputPassword);
@@ -46,6 +62,7 @@ public class Register extends AppCompatActivity {
        progressDialog= new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
+
 
        alreadyHaveaaccount.setOnClickListener(new View.OnClickListener() {
            @Override
@@ -101,7 +118,7 @@ public class Register extends AppCompatActivity {
    }
 
     private void sendUserToNextActivity() {
-        Intent intent=new Intent(Register.this, MainActivity.class);
+        Intent intent=new Intent(Register.this, BookListMain.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 

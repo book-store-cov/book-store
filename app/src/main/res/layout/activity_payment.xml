@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".Payment">
 
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/cash"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginBottom="12dp"
         android:src="@drawable/ic_baseline_currency_pound_24"
         app:layout_constraintBottom_toTopOf="@id/cashlabel"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,46 +23,52 @@
         android:id="@+id/cashlabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
         android:gravity="center"
-        app:layout_constraintEnd_toEndOf="@id/cash"
-        app:layout_constraintStart_toStartOf="@id/cash"
+        android:text="CASH"
         app:layout_constraintBottom_toTopOf="@id/linear"
-        android:text="CASH"/>
-
+        app:layout_constraintEnd_toEndOf="@id/cash"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/cash" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/card"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginBottom="12dp"
         android:src="@drawable/ic_baseline_credit_card_24"
         app:layout_constraintBottom_toTopOf="@+id/cardLabel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/cash" />
 
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/cardLabel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
         android:gravity="center"
-        app:layout_constraintEnd_toEndOf="@id/card"
+        android:text="CARD"
         app:layout_constraintBottom_toTopOf="@+id/linear"
-        app:layout_constraintStart_toStartOf="@id/card"
-        android:text="CARD"/>
+        app:layout_constraintEnd_toEndOf="@id/card"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@id/card" />
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linear"
         android:layout_width="388dp"
         android:layout_height="347dp"
-        android:layout_marginStart="8dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cardsubmit"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".5"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.676"
+        app:layout_constraintVertical_bias="0.888"
         tools:ignore="MissingConstraints">
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -117,18 +125,33 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cardsubmit"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/primaryColor"
+        android:layout_marginBottom="40dp"
+        android:background="@color/primaryGreen"
         android:text="SUBMIT"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/text_xxx_large"
         app:iconGravity="textStart"
         app:iconPadding="@dimen/layout_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="TextContrastCheck" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primaryGreen"
+        app:itemTextColor="@drawable/menu_item_active"
+        app:itemIconTint="@drawable/menu_item_active"
+        app:menu="@menu/navigation_menu"
+        android:id="@+id/bottom_nav"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

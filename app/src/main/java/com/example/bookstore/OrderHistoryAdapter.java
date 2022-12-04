@@ -59,10 +59,6 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter<OrderHistoryAdapte
         }
     }
 
-    // convenience method for getting data at click position
-//    String getItem(int id) {
-////        return mData.get(id);
-//    }
 
     // allows clicks events to be caught
     void setClickListener(ItemClickListener itemClickListener) {

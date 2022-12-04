@@ -40,7 +40,9 @@ public class Signin extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        Log.d("debug2", "userid signin"+currentUser.getUid());
         if(currentUser != null){
+
             sendUserToNextActivity();
         }
     }
@@ -71,7 +73,7 @@ public class Signin extends AppCompatActivity {
         createnewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Signin.this, Register.class));
+                startActivity(new Intent(Signin.this, BookDetails.class));
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -114,8 +116,9 @@ public class Signin extends AppCompatActivity {
         }
     }
     private void sendUserToNextActivity() {
-        Intent intent=new Intent(Signin.this, MainActivity.class);
+        Intent intent=new Intent(Signin.this, BookListMain.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+
         startActivity(intent);
 
     }

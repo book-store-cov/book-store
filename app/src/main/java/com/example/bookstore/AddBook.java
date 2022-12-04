@@ -14,18 +14,21 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
-import com.example.bookstore.MainActivity;
+
 import com.example.bookstore.databinding.ActivityAddBookBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +43,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class AddBook extends Fragment {
+public class AddBook extends AppCompatActivity {
     ActivityAddBookBinding binding;
 
     StorageReference storageRef ;
@@ -54,16 +57,53 @@ public class AddBook extends Fragment {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityAddBookBinding.inflate(getLayoutInflater());
+
+        setContentView(R.layout.activity_add_book);
+
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setSelectedItemId(R.id.navbar_home);
+        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId()){
+                    case R.id.navbar_orders:
+                        Intent intent = new Intent(AddBook.this, OrderList.class);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navbar_cart:
+                        Intent intent1 = new Intent(AddBook.this, Cart.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navbar_logout:
+//                        Logout;
+                        return true;
+                    case R.id.navbar_home:
+                        Intent intent2 = new Intent(AddBook.this, BookListMain.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0,0);
+                        return true;
+
+                }
+                return false;
+            }
+        });
+
+
 
 
 
         binding.addBookUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 addImage();
             }
         });
@@ -80,13 +120,9 @@ public class AddBook extends Fragment {
 
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                    textView.setText("£" + progress);
-
                     //Get the thumb bound and get its left value
                     price= seekBar.getThumb().getBounds().left;
                     binding.addBookPriceHeader.setText("Retail Price: £" + price);
-
-
 
                 }
             @Override
@@ -103,7 +139,7 @@ public class AddBook extends Fragment {
                 pDate = Cal.get(Calendar.DATE);
                 pMonth = Cal.get(Calendar.MONTH);
                 pYear = Cal.get(Calendar.YEAR);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AddBook.this.requireActivity(), android.R.style.Theme_DeviceDefault_Dialog, new DatePickerDialog.OnDateSetListener() {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddBook.this, android.R.style.Theme_DeviceDefault_Dialog, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int date) {
                         String fDate = String.valueOf(date);
@@ -127,11 +163,12 @@ public class AddBook extends Fragment {
             }
         });
 
-        return inflater.inflate(R.layout.activity_add_book, container, false);
 
     }
 
-//    upload image to firebase and get the download url
+
+
+    //    upload image to firebase and get the download url
     private void uploadImage() {
         if(imageUri!=null){
         storageRef = FirebaseStorage.getInstance().getReference();
@@ -149,13 +186,13 @@ public class AddBook extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 e.printStackTrace();
-               Toast.makeText(AddBook.this.requireActivity(), "Failed to upload image!", Toast.LENGTH_SHORT ).show();
+               Toast.makeText(AddBook.this, "Failed to upload image!", Toast.LENGTH_SHORT ).show();
 
 
             }
         });
         }else {
-            Toast.makeText(AddBook.this.requireActivity(), "Please complete the form!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddBook.this, "Please complete the form!", Toast.LENGTH_SHORT).show();
         }
     }
     private void setImageDownloadUri(){
@@ -171,7 +208,7 @@ public class AddBook extends Fragment {
         downloadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AddBook.this.requireActivity(), "Failed to get image!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddBook.this, "Failed to get image!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -211,14 +248,14 @@ public class AddBook extends Fragment {
                @Override
                public void onSuccess(Object o) {
 
-                   Intent intent = new Intent(AddBook.this.requireActivity(), MainActivity.class);
+                   Intent intent = new Intent(AddBook.this, BookListMain.class);
                    startActivity(intent);
                }
             }).addOnFailureListener(new OnFailureListener() {
                @Override
                public void onFailure(@NonNull Exception e) {
                    e.printStackTrace();
-                   Toast.makeText(AddBook.this.requireActivity(), "Failed to add book!", Toast.LENGTH_SHORT).show();
+                   Toast.makeText(AddBook.this, "Failed to add book!", Toast.LENGTH_SHORT).show();
 
                }
            });
@@ -246,7 +283,7 @@ public class AddBook extends Fragment {
 
             imageUri = data.getData();
             binding.addBookUpload.setImageURI(imageUri);
-            imageName = getFilename(imageUri, AddBook.this.requireActivity());
+            imageName = getFilename(imageUri, AddBook.this);
 
         }
 

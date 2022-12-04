@@ -28,7 +28,7 @@
             android:layout_height="55dp"
             android:text="Order Placed"
             android:textAlignment="center"
-            android:textColor="@color/primaryColor"
+            android:textColor="@color/primaryGreen"
             android:textSize="40sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,10 +57,10 @@
             android:id="@+id/textView3"
             android:layout_width="349dp"
             android:layout_height="218dp"
-            android:text="Congrats... Your Order Placed Successfully. Your order will delivered within 10 days. For any enquiries please call 07777777770  "
+            android:text="Congrats. Your order is placed successfully. It will be delivered within 10 days."
             android:textAlignment="center"
-            android:textColor="@color/primaryColor"
-            android:textSize="30dp"
+            android:textColor="@color/black"
+            android:textSize="25dp"
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="232dp" />
@@ -73,7 +73,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="68dp"
         android:layout_marginBottom="124dp"
-        android:backgroundTint="#009688"
+        android:backgroundTint="@color/primaryGreen"
         android:text="@string/View_order_history"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -82,5 +82,16 @@
         app:iconPadding="@dimen/layout_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/primaryGreen"
+        app:itemTextColor="@drawable/menu_item_active"
+        app:itemIconTint="@drawable/menu_item_active"
+        app:menu="@menu/navigation_menu"
+        android:id="@+id/bottom_nav"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
