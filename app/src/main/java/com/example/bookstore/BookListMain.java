@@ -73,7 +73,9 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
                 }
 
                 bookListAdapter.notifyDataSetChanged();
+
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -114,9 +116,6 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
             }
             return true;
         });
-
-
-
 
 
 
