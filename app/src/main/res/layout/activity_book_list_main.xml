@@ -21,6 +21,86 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/lineartable"
+        android:layout_width="398dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent=".5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.066"
+        tools:ignore="MissingConstraints">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+
+            android:background="@color/white">
+
+            <TableRow android:background="@color/primaryColor">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/sold_book"
+                    android:textColor="@color/white"
+                    android:textSize="14dp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/available_book"
+                    android:textColor="@color/white"
+                    android:textSize="14dp">
+
+                </TextView>
+            </TableRow>
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/sold_number"
+                    android:textColor="@color/black"
+                    android:textSize="14dp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"
+                    android:padding="10dp"
+                    android:text="@string/available_number"
+                    android:textColor="@color/black"
+                    android:textSize="14dp">
+
+                </TextView>
+
+            </TableRow>
+        </TableLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/lineartt"
         android:layout_width="397dp"
@@ -44,7 +124,7 @@
             android:layout_marginBottom="16dp"
             android:backgroundTint="@color/primaryColor"
             android:text="@string/add_book"
-            android:textColor="#546E7A"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,8 +136,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_margin="2dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp" />
 
 </LinearLayout>

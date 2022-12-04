@@ -14,4 +14,9 @@
     <string name = "nav_cart">Cart</string>
     <string name="nav_add_book">Add book</string>
     <string name="add_book">Add Book</string>
+    <string name="sold_book">Sold Book</string>
+    <string name="available_book">Available Book</string>
+    <string name="sold_number"> 5</string>
+    <string name="available_number">3</string>
+
 </resources>
