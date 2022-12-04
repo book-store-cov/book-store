@@ -9,16 +9,18 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bookstore.cart.CartData;
+
 import java.util.ArrayList;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 IClickListener iClickListener;
 
-    private ArrayList<CartList> cartLists;
+    private ArrayList<CartData> cartLists;
     int count = 1;
 
 
-    public CartAdapter(IClickListener iClickListener, ArrayList<CartList> cartList) {
+    public CartAdapter(IClickListener iClickListener, ArrayList<CartData> cartList) {
         cartLists = cartList;
         this.iClickListener=iClickListener;
     }
@@ -37,8 +39,8 @@ IClickListener iClickListener;
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemNAme.setText(cartLists.get(position).getBookName());
-        holder.itemID.setText("" + cartLists.get(position).getBookId());
+        holder.itemNAme.setText(cartLists.get(position).getTitle());
+        holder.itemID.setText("" + cartLists.get(position).getISBN());
         holder.price.setText("1 x " + cartLists.get(position).getPrice());
         holder.bookFinalPrice.setText("" + cartLists.get(position).getPrice());
         holder.count.setText("1");
