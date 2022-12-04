@@ -15,25 +15,39 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import com.example.bookstore.cart.CartData;
 import com.example.bookstore.databinding.ActivityCartBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 
 
 public class Cart extends AppCompatActivity implements IClickListener  {
-    private ArrayList<CartList> cartList;
+    private ArrayList<CartData> cartList;
     IClickListener iClickListener;
     private TextView priceButton;
-    private int totalPrice = 185;
+    private int totalPrice = 0;
     ActivityCartBinding binding;
+    String uid;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCartBinding.inflate(getLayoutInflater());
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null) {
+            uid = currentUser.getUid();
+        }
 
         setContentView(R.layout.activity_cart);
 
@@ -48,7 +62,8 @@ public class Cart extends AppCompatActivity implements IClickListener  {
 
             }
         });
-        cartList = getDummyData();
+
+
         RecyclerView recyclerView = (RecyclerView) binding.recyclerCartItems;
         // set a LinearLayoutManager with default vertical orientation
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Cart.this);
@@ -57,7 +72,37 @@ public class Cart extends AppCompatActivity implements IClickListener  {
         CartAdapter cartAdapter = new CartAdapter(Cart.this, cartList);
         recyclerView.setAdapter(cartAdapter); // set the Adapter to RecyclerView
 
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
+
+        DatabaseReference cartRef = dbRef.child("cart").child(uid);
+
+
+        cartRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    CartData cartObj = dataSnapshot.getValue(CartData.class);
+                    cartList.add(cartObj);
+                    }
+                    cartAdapter.notifyDataSetChanged();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+
+        //BOTTOM NAVIGATION SETUP
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setSelectedItemId(R.id.navbar_cart);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

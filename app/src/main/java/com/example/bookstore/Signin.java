@@ -40,6 +40,7 @@ public class Signin extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        Log.d("debug2", "userid signin"+currentUser.getUid());
         if(currentUser != null){
 
             sendUserToNextActivity();

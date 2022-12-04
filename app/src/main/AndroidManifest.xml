@@ -23,14 +23,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".BookDetails"
-            android:exported="true"
-            android:label="bookstore-bookdetails">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".OrderList"
             android:exported="true">
             <meta-data

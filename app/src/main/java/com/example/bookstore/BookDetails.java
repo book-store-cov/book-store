@@ -10,12 +10,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bookstore.databinding.ActivityBookDetailsBinding;
+import com.example.bookstore.databinding.ActivityCartBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,43 +29,109 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BookDetails extends AppCompatActivity {
 
     ActivityBookDetailsBinding binding;
-    TextView isbnNumDisplay,bookName,authorNameDisplay,publicationNameDisplay,bookDescriptionDisplay,rate;
+
     ImageView bookImage;
+    TextView titleText, ISBNText, priceText, authorText, publicationDateText, descriptionText;
     Button button;
+    String title, imgURL;
+    Long price;
+
+    FirebaseAuth mAuth;
+    String uid;
 
 
-    FirebaseDatabase fDatabse;
+    DatabaseReference fDatabse;
     DatabaseReference dRef;
+
+    boolean isAdmin= false;
+
 
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
+        binding = ActivityBookDetailsBinding.inflate(getLayoutInflater());
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null) {
+            uid = currentUser.getUid();
+
+
+        }
 
         setContentView(R.layout.activity_book_details);
 
-
-
-
-        bookName=findViewById(R.id.bookName);
-        bookDescriptionDisplay=findViewById(R.id.bookDescriptionDisplay);
-        button=findViewById(R.id.button);
         bookImage=findViewById(R.id.bookImage);
+        button=findViewById(R.id.add_to_cart);
+        titleText = findViewById(R.id.book_title);
+        priceText = findViewById(R.id.bookPrice);
+        ISBNText = findViewById(R.id.ISBN_value);
+        authorText = findViewById(R.id.author_name);
+        publicationDateText = findViewById(R.id.publication_date);
+        descriptionText = findViewById(R.id.book_description);
+
+        String ISBN = getIntent().getExtras().getString("ISBN");
 
 
-        fDatabse = FirebaseDatabase.getInstance();
-        dRef=fDatabse.getReference().child("books").child("1234567890123");
+        fDatabse = FirebaseDatabase.getInstance().getReference();
+        dRef=fDatabse.child("books").child(ISBN);
+        DatabaseReference cartDBRef = fDatabse.child("cart");
 
+//        add to cart functionality
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(BookDetails.this, AddBook.class));
+
+                Map<String, Object> book = new HashMap<>();
+                book.put("title", title);
+                book.put("ISBN", ISBN);
+                book.put("imageURL", imgURL);
+                book.put("price", price);
+                book.put("count", 1);
+
+                cartDBRef.child(uid).setValue(book).addOnSuccessListener(new OnSuccessListener() {
+                    @Override
+                    public void onSuccess(Object o) {
+
+                        Intent intent = new Intent(BookDetails.this, BookListMain.class);
+                        startActivity(intent);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(BookDetails.this, "Failed to add book!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
             }
         });
+
+        //Setting up admin view
+        DatabaseReference userRef = fDatabse.child("users");
+        userRef.child(uid).child("isAdmin").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists() && snapshot.getValue(boolean.class)){
+                    button.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
 
 
@@ -67,9 +139,9 @@ public class BookDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    isbnNumDisplay.setText(dataSnapshot.getValue(String.class));
+                    ISBNText.setText(ISBN);
                 }else{
-                    isbnNumDisplay.setText("Not Found");
+                    ISBNText.setText(ISBN);
                 }
             }
 
@@ -83,9 +155,10 @@ public class BookDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    bookName.setText(dataSnapshot.getValue(String.class));
+                    title=dataSnapshot.getValue(String.class);
+                    titleText.setText(title);
                 }else{
-                    bookName.setText("Not Found");
+                    titleText.setText("Not Found");
                 }
             }
 
@@ -99,9 +172,9 @@ public class BookDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    authorNameDisplay.setText(dataSnapshot.getValue(String.class));
+                    authorText.setText(dataSnapshot.getValue(String.class));
                 }else{
-                    authorNameDisplay.setText("Not Found");
+                    authorText.setText("Not Found");
                 }
             }
 
@@ -115,9 +188,9 @@ public class BookDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    publicationNameDisplay.setText(dataSnapshot.getValue(String.class));
+                    publicationDateText.setText(dataSnapshot.getValue(String.class));
                 }else{
-                    publicationNameDisplay.setText("Not Found");
+                    publicationDateText.setText("Not Found");
                 }
             }
 
@@ -132,9 +205,9 @@ public class BookDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    bookDescriptionDisplay.setText(dataSnapshot.getValue(String.class));
+                    descriptionText.setText(dataSnapshot.getValue(String.class));
                 }else{
-                    bookDescriptionDisplay.setText("Not Found");
+                    descriptionText.setText("Not Found");
                 }
             }
 
@@ -147,7 +220,8 @@ public class BookDetails extends AppCompatActivity {
         dRef.child("price").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                rate.setText(dataSnapshot.getValue().toString());
+                price = (Long) dataSnapshot.getValue();
+                priceText.setText("£"+String.valueOf(price));
             }
 
             @Override
@@ -159,8 +233,8 @@ public class BookDetails extends AppCompatActivity {
         dRef.child("imageURL").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               String link=dataSnapshot.getValue(String.class);
-                Picasso.get().load(link).into(bookImage);
+               imgURL=dataSnapshot.getValue(String.class);
+                Picasso.get().load(imgURL).into(bookImage);
             }
 
             @Override
@@ -169,8 +243,6 @@ public class BookDetails extends AppCompatActivity {
             }
         });
 
-        String ISBN = getIntent().getExtras().getString("ISBN");
-        Log.d("debug2", "ISBN VALUE: "+ISBN);
 
 //        Bottom navigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);

@@ -20,4 +20,5 @@
     <string name="label_id">Order ID</string>
     <string name="label_price">Total Price</string>
     <string name="logout">Logout</string>
+    <string name="add_to_cart">Add to cart</string>
 </resources>
