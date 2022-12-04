@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,6 +69,18 @@ public class BookListMain extends AppCompatActivity {
             }
         });
 
+        final Button button = (Button) this.findViewById(R.id.addbook_btn);
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(i);
+
+            }
+        });
 
     }
 }
