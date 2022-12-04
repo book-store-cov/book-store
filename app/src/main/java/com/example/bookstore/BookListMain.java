@@ -119,9 +119,6 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
 
 
 
-
-
-
     }
 
     private String getBookId(int position){

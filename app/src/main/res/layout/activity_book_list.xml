@@ -75,7 +75,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_gravity="right"
                     app:fabSize="normal"
-                    app:srcCompat="@drawable/ic_baseline_add_shopping_cart_24" />
+                    app:srcCompat="@drawable/ic_baseline_shopping_cart_24" />
 
 
             </LinearLayout>
