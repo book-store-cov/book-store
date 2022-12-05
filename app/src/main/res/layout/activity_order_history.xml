@@ -239,7 +239,7 @@
             tools:layout_editor_absoluteY="614dp" />
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/total_price_value"
             android:layout_width="360dp"
             android:layout_height="40dp"
             android:layout_alignParentTop="true"

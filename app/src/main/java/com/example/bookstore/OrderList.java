@@ -2,22 +2,20 @@ package com.example.bookstore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 
-import com.example.bookstore.cart.CartData;
 import com.example.bookstore.databinding.ActivityOrderListBinding;
 import com.example.bookstore.orders.OnOrderClickListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,26 +24,47 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class OrderList extends AppCompatActivity implements OnOrderClickListener {
 
-    DatabaseReference database;
+    DatabaseReference dbRef;
     ArrayList<OrderListView> orderListViews;
-    //private ArrayList<OrderListView> orderListViews;
     ActivityOrderListBinding binding;
+    String uid;
+    boolean isAdmin = false;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityOrderListBinding.inflate(getLayoutInflater());
-
-
         setContentView(R.layout.activity_order_list);
+        dbRef = FirebaseDatabase.getInstance().getReference();
 
-        database = FirebaseDatabase.getInstance().getReference().child("orders");
         orderListViews = new ArrayList<OrderListView>();
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            uid = currentUser.getUid();
+        }
 
+        DatabaseReference isUserAnAdminRef = dbRef.child("users").child(uid).child("isAdmin");
+
+//        set up admin check
+        isUserAnAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                isAdmin = (boolean) snapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+
+        //SET UP RECYCLER VIEW
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerCartItemsp);
         // set a LinearLayoutManager with default vertical orientation
@@ -56,27 +75,53 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
         recyclerView.setAdapter(orderAdapter); // set the Adapter to RecyclerView
 
 
-        database.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    HashMap<String, Object> data = (HashMap<String, Object>) dataSnapshot.getValue();
-                    OrderListView orderList = new OrderListView(data.get("totalPrice"), data.get("orderID"));
-                    Log.d("debug2", "order list1" + orderList);
+//        FETCH DATA FOR ORDER LIST BASED ON ROLETYPE
+        DatabaseReference orderRef = dbRef.child("orders");
 
-                    orderListViews.add(orderList);
+        if(isAdmin){
+            orderRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot snap: snapshot.getChildren()){
+                        HashMap<String, Object> resData =(HashMap<String, Object>) snap.getChildren();
+                        for (Map.Entry<String, Object> set : resData.entrySet()){
+                            OrderListView orderObj = new OrderListView((HashMap<String, Object>) set.getValue());
+                            orderListViews.add(orderObj);
+                            Log.d("debug4",  "RES DATA FOR ADMIN: "+resData);
+                        }
+
+                    }
+                    orderAdapter.notifyDataSetChanged();
+
                 }
-                Log.d("debug2", "order list" + orderListViews);
-                orderAdapter.notifyDataSetChanged();
 
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }else {
+            orderRef.child(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot snap: snapshot.getChildren()){
+
+                        OrderListView orderObj= snap.getValue(OrderListView.class);
+                        orderListViews.add(orderObj);
+                        Log.d("debug4",  "RES DATA FOR CUSTOMER: "+snap.getValue());
+                    }
+                    orderAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
@@ -120,7 +165,8 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
   @Override
     public void onOrderClick(View view, int position){
         Intent i = new Intent(OrderList.this, OrderHistory.class);
-        i.putExtra("orderId", orderListViews.get(position).getOrderID());
+
+        i.putExtra("orderID", orderListViews.get(position).getOrderID());
         startActivity(i);
   }
 

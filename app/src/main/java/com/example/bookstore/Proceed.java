@@ -212,7 +212,6 @@ public class Proceed extends AppCompatActivity {
 
     private void updateBookCount(HashMap<String, Object> booksObj) {
         DatabaseReference booksRef = dbRef.child("books");
-        Log.d("debug2", "booksRef"+booksObj);
         final int[] allCount = new int[1];
         for (Map.Entry<String, Object> set : booksObj.entrySet()) {
             OrderBook bookObject = new OrderBook((HashMap<String, Object>) set.getValue());
@@ -232,7 +231,6 @@ public class Proceed extends AppCompatActivity {
 
                     });
                 }
-
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
 

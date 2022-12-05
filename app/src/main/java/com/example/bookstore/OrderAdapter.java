@@ -1,5 +1,6 @@
 package com.example.bookstore;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
     OnOrderClickListener orderClickListener;
-    private ArrayList<CartList> cartLists;
 
     ArrayList<OrderListView> orderListData;
     OnClickListener listener;
@@ -51,16 +51,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 //        if(orderListDataArray.getBookTitle()!=null) {
 //            holder.bookName.setText(orderListDataArray.getBookTitle());
 //        }
+
         holder.orderID.setText(orderListDataArray.getOrderID());
-        if (orderListDataArray.getTotalPrice() != null) {
-            holder.orderPrice.setText(orderListDataArray.getTotalPrice() + "");
+        if (orderListDataArray.getTotalPrice()>=0) {
+            holder.orderPrice.setText("£"+orderListDataArray.getTotalPrice());
         }
 
-//        try {
-//            Glide.with(view).load(orderListDataArray.getBookImage()).into(holder.bookImage);
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

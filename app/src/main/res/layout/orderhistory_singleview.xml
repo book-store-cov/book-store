@@ -8,10 +8,6 @@
     app:cardCornerRadius="0dp"
     app:elevation="0dp">
 
-    <RelativeLayout
-        android:id="@+id/viewBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
     <RelativeLayout
         android:id="@+id/viewForeground"
@@ -20,26 +16,18 @@
         android:padding="@dimen/layout_padding_small">
 
         <TextView
-            android:id="@+id/booktitle"
+            android:id="@+id/history_book_title"
             style="@style/CartItemsTextStyle"
             android:layout_width="match_parent"
             android:gravity="start"
             android:text="@string/title"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/quantity"
+            android:id="@+id/history_total_price"
             style="@style/CartItemsTextStyle"
-            android:layout_below="@+id/booktitle"
+            android:layout_below="@+id/history_book_title"
             android:gravity="start"
-            android:text="Quantity "
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/price"
-            style="@style/CartItemsTextStyle"
-            android:layout_below="@+id/quantity"
-            android:gravity="start"
-            android:text="Total Price "
+            android:text="Total Price"
             android:textStyle="bold"/>
 
     </RelativeLayout>
