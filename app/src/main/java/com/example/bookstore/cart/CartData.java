@@ -14,9 +14,9 @@ public class CartData {
 
     public CartData(Object ISBN, Object imgURL, Object count, Object title, Object price) {
         Log.d("debug2", "inside object con");
-        this.count= (int)count;
+        this.count= ((Long)count).intValue();
         this.imgURL = (String)imgURL;
-        this.price = (int)price;
+        this.price = ((Long)price).intValue();
         this.title= (String) title;
         this.ISBN = (String) ISBN;
     }

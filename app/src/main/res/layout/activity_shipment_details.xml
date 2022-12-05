@@ -39,7 +39,7 @@
         android:layout_height="58dp"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="House Number"
+        android:hint="Address 1"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.477"
@@ -73,6 +73,17 @@
         app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addpostcode" />
+
+    <TextView
+        android:id="@+id/addShippingError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text=""
+        android:textColor="@color/error"
+        app:layout_constraintBottom_toTopOf="@+id/adddetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/adddetails"

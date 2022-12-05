@@ -97,10 +97,9 @@ public class BookDetails extends AppCompatActivity {
                 book.put("price", price);
                 book.put("count", 1);
 
-                cartDBRef.child(uid).setValue(book).addOnSuccessListener(new OnSuccessListener() {
+                cartDBRef.child(uid).child("books").child(ISBN).setValue(book).addOnSuccessListener(new OnSuccessListener() {
                     @Override
                     public void onSuccess(Object o) {
-
                         Intent intent = new Intent(BookDetails.this, BookListMain.class);
                         startActivity(intent);
                     }
@@ -122,7 +121,7 @@ public class BookDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists() && snapshot.getValue(boolean.class)){
-                    button.setVisibility(View.GONE);
+//                    button.setVisibility(View.GONE);
                 }
             }
             @Override

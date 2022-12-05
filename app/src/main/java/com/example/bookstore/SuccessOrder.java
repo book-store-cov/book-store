@@ -29,7 +29,7 @@ public class SuccessOrder extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(getApplicationContext(),OrderHistory.class);
+                Intent i = new Intent(getApplicationContext(),OrderList.class);
                 startActivity(i);
 
             }

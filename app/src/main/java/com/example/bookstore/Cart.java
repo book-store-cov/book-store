@@ -52,7 +52,7 @@ public class Cart extends AppCompatActivity implements IClickListener  {
             uid = currentUser.getUid();
         }
         dbRef= FirebaseDatabase.getInstance().getReference();
-        cartRef =  dbRef.child("cart").child(uid);
+        cartRef =  dbRef.child("cart").child(uid).child("books");
 
         setContentView(R.layout.activity_cart);
 
@@ -65,6 +65,7 @@ public class Cart extends AppCompatActivity implements IClickListener  {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Cart.this,ShipmentDetails.class);
+                i.putExtra("totalAmount", ""+getTotalPrice(cartList));
                 startActivity(i);
 
             }
@@ -80,7 +81,6 @@ public class Cart extends AppCompatActivity implements IClickListener  {
 
 
         cartRef.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
