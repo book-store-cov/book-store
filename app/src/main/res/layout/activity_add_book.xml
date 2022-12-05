@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     tools:context=".AddBook"
     android:id="@+id/scroll_parent_add_book"
-   >
+    >
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -151,6 +151,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!--<TextView
+            android:id="@+id/addBookNumberHeader"
+            android:layout_width="91dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="32dp"
+            android:text="Number of books:"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/addBookSubmit"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <SeekBar
+            android:id="@+id/addBookNumber"
+            android:layout_width="166dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@+id/addBookNumberHeader"
+            app:layout_constraintTop_toBottomOf="@+id/addBookPrice" />
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toTopOf="@+id/addBookSubmit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.426"
+            app:layout_constraintStart_toEndOf="@+id/addBookNumber" /> -->
         <Button
             android:id="@+id/addBookSubmit"
             android:layout_width="wrap_content"

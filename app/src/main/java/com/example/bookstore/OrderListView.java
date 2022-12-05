@@ -1,51 +1,19 @@
 package com.example.bookstore;
 
 public class OrderListView {
+    private String orderID;
 
+    private Long totalPrice;
     public OrderListView(){
 
 
     }
 
+    public OrderListView(Object totalPrice, Object orderID) {
 
-    public OrderListView(Object title, Object orderID, Object price, Object imageURL, Object ISBN) {
-        this.bookTitle = (String) title;
         this.orderID = (String) orderID;
-        this.bookPrice = (Long) price;
-        this.bookImage = (String) imageURL;
-        this.ISBN = (String) ISBN;
-    }
+        this.totalPrice = (Long) totalPrice;
 
-    public String getBookTitle() {
-        return bookTitle;
-    }
-
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
-    }
-
-    public Long getBookPrice() {
-        return bookPrice;
-    }
-
-    public void setBookPrice(Long bookPrice) {
-        this.bookPrice = bookPrice;
-    }
-
-    public String getBookImage() {
-        return bookImage;
-    }
-
-    public void setBookImage(String bookImage) {
-        this.bookImage = bookImage;
-    }
-
-    public String getISBN() {
-        return ISBN;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
     }
 
     public String getOrderID() {
@@ -56,11 +24,18 @@ public class OrderListView {
         this.orderID = orderID;
     }
 
-    private String bookTitle;
+    public Long getTotalPrice() {
+        return totalPrice;
+    }
 
-    private Long bookPrice;
-    private String bookImage;
-    private String ISBN;
+    public void setTotalPrice(Long totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
-    private String orderID;
+
+
+
+
+
+
 }
