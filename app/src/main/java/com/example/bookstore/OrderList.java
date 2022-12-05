@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.bookstore.cart.CartData;
 import com.example.bookstore.databinding.ActivityOrderListBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -85,12 +86,12 @@ public class OrderList extends AppCompatActivity implements IClickListener{
 
 
     @Override
-    public void onIncrementClick(int price) {
+    public void onIncrementClick(CartData cartObj) {
 
     }
 
     @Override
-    public void onDecrementClick(int price) {
+    public void onDecrementClick(CartData cartObj) {
 
     }
 

@@ -1,22 +1,42 @@
 package com.example.bookstore.cart;
 
+import android.util.Log;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class CartData {
 
     String ISBN, imgURL, title;
     private int count;
     int price;
 
+    public CartData(Object ISBN, Object imgURL, Object count, Object title, Object price) {
+        Log.d("debug2", "inside object con");
+        this.count= (int)count;
+        this.imgURL = (String)imgURL;
+        this.price = (int)price;
+        this.title= (String) title;
+        this.ISBN = (String) ISBN;
+    }
 
+    public CartData(String ISBN, String imgURL, int count, String title,Long price){
+        Log.d("debug2", "inside string con");
 
-    public void CartData(){}
-
-    public void CartData(String ISBN, String imgURL, int count, String title,int price){
         this.count= count;
         this.imgURL = imgURL;
-        this.price = price;
+        this.price =  price.intValue();
         this.title= title;
         this.ISBN = ISBN;
     }
+
+
+
+
+    public CartData(){}
+
+
 
     public String getISBN() {
         return ISBN;
