@@ -40,6 +40,7 @@ public class Signin extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        Log.d("debug2", "userid signin"+currentUser.getUid());
         if(currentUser != null){
 
             sendUserToNextActivity();
@@ -72,7 +73,7 @@ public class Signin extends AppCompatActivity {
         createnewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Signin.this, Register.class));
+                startActivity(new Intent(Signin.this, BookDetails.class));
             }
         });
         btnLogin.setOnClickListener(new View.OnClickListener() {

@@ -8,39 +8,17 @@
 
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/cash"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="12dp"
-        android:src="@drawable/ic_baseline_currency_pound_24"
-        app:layout_constraintBottom_toTopOf="@id/cashlabel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/card"
-        app:layout_constraintHeight_percent=".2"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/cashlabel"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:gravity="center"
-        android:text="CASH"
-        app:layout_constraintBottom_toTopOf="@id/linear"
-        app:layout_constraintEnd_toEndOf="@id/cash"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@id/cash" />
-
-    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/card"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/ic_baseline_credit_card_24"
         app:layout_constraintBottom_toTopOf="@+id/cardLabel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cash" />
-
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.857" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/cardLabel"

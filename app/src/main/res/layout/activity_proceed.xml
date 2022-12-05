@@ -6,101 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".Proceed">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/lineartl"
-        android:layout_width="193dp"
-        android:layout_height="248dp"
-        android:layout_marginStart="4dp"
-        android:gravity="left"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent=".5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057"
-        tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="181dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="0dp"
-            android:text="Customer Details"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="60dp" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="177dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="216dp"
-            android:text="Customer Name"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.163" />
-
-        <TextView
-            android:id="@+id/textView16"
-            android:layout_width="179dp"
-            android:layout_height="30dp"
-            android:text="Address - House Number"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.887"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.201" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="177dp"
-            android:layout_height="29dp"
-            android:text="Address - City"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.304" />
-
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="176dp"
-            android:layout_height="25dp"
-            android:text="Address - Postcode"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.254" />
-
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:id="@+id/lineartr"
-        android:layout_width="201dp"
-        android:layout_height="247dp"
-        android:layout_marginStart="196dp"
-
-        android:gravity="left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:orientation="vertical"
         android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.057"
         tools:ignore="MissingConstraints">
 
+
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/shipment_details_header"
             android:layout_width="199dp"
             android:layout_height="35dp"
             android:layout_marginStart="0dp"
@@ -111,81 +34,139 @@
             tools:layout_editor_absoluteX="205dp"
             tools:layout_editor_absoluteY="60dp" />
 
-        <ImageView
-            android:id="@+id/editShipment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginStart="108dp"
-            android:src="@drawable/ic_baseline_edit_24"
-            tools:ignore="MissingConstraints" />
-
         <TextView
-            android:id="@+id/textView26"
-            android:layout_width="203dp"
-            android:layout_height="22dp"
-            android:text="Name"
+            android:id="@+id/name_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shipment_details_header"
+            android:layout_marginTop="10dp"
+            android:text="Name: "
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.161" />
 
         <TextView
-            android:id="@+id/textView5"
-            android:layout_width="177dp"
-            android:layout_height="29dp"
-            android:text="Address - House Number"
+            android:id="@+id/name_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_label"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="6dp"
+            android:text="Alice"
+            app:layout_constraintVertical_bias="0.161" />
+
+
+        <TextView
+            android:id="@+id/address_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name_value"
+            android:layout_marginTop="10dp"
+            android:text="Address: "
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.204" />
 
         <TextView
-            android:id="@+id/textView25"
-            android:layout_width="186dp"
-            android:layout_height="31dp"
-            android:text="Address - City"
+            android:id="@+id/address_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address_label"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:text="19 Catherine Street"
+            app:layout_constraintVertical_bias="0.161" />
+
+        <TextView
+            android:id="@+id/city_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/address_value"
+            android:layout_marginTop="10dp"
+            android:text="City: "
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.917"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.297" />
 
         <TextView
-            android:id="@+id/textView24"
-            android:layout_width="173dp"
+            android:id="@+id/city_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/city_label"
+            android:layout_marginTop="6dp"
+            android:text="Coventry"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.917"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.297" />
+
+        <TextView
+            android:id="@+id/postcode_label"
+            android:layout_width="match_parent"
             android:layout_height="27dp"
-            android:text="Address - Postcode"
+            android:layout_below="@+id/city_value"
+            android:layout_marginTop="10dp"
+            android:text="Postcode:"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.863"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.254" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/postcode_value"
+            android:layout_width="match_parent"
+            android:layout_height="27dp"
+            android:layout_below="@+id/postcode_label"
+            android:layout_marginTop="6dp"
+            android:text="CV24GY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.863"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.254" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+        <ImageView
+
+            android:id="@+id/editShipment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_toEndOf="@+id/shipment_details_header"
+            android:src="@drawable/ic_baseline_edit_24" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/linearm"
-        android:layout_width="403dp"
-        android:layout_height="229dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
         android:gravity="left"
         android:orientation="vertical"
         android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_percent=".5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lineartl"
-        app:layout_constraintVertical_bias="0.057"
+        app:layout_constraintTop_toBottomOf="@+id/lineartr"
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/textView19"
-            android:layout_width="217dp"
+            android:id="@+id/payment_header"
+            android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginStart="16dp"
             android:text="Mode of Payment"
@@ -195,109 +176,154 @@
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="284dp" />
 
+
         <ImageView
-            android:id="@+id/editpayment"
+            android:id="@+id/edit_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/payment_header"
             android:src="@drawable/ic_baseline_edit_24"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
+            app:layout_constraintStart_toStartOf="@+id/payment_header"
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/card_details_header"
             android:layout_width="158dp"
             android:layout_height="35dp"
+            android:layout_below="@+id/payment_header"
             android:layout_marginStart="16dp"
-            android:text="CARD/CASH"
+            android:layout_marginTop="10dp"
+            android:text="CARD DETAILS"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/payment_header"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="344dp" />
 
         <TextView
-            android:id="@+id/textView23"
-            android:layout_width="372dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="16dp"
+            android:id="@+id/card_number_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_details_header"
+            android:layout_marginTop="10dp"
             android:text="Card Number"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/card_details_header" />
 
         <TextView
-            android:id="@+id/textView17"
-            android:layout_width="372dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="16dp"
+            android:id="@+id/card_number_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_number_label"
+            android:layout_marginTop="6dp"
+            android:text="94828924848"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/card_number_label" />
+
+        <TextView
+            android:id="@+id/cvv_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_number_value"
+            android:layout_marginTop="10dp"
             android:text="CVV"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/card_number_value"
             app:layout_constraintVertical_bias="0.695" />
 
         <TextView
-            android:id="@+id/textView18"
-            android:layout_width="372dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="16dp"
-            android:text="year"
+            android:id="@+id/cvv_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cvv_label"
+            android:layout_marginTop="6dp"
+            android:text="832"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cvv_label"
+            app:layout_constraintVertical_bias="0.695" />
+
+        <TextView
+            android:id="@+id/year_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/cvv_value"
+            android:layout_marginTop="10dp"
+            android:text="Year"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/cvv_value"
+            app:layout_constraintVertical_bias="0.757" />
+
+        <TextView
+            android:id="@+id/year_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/year_label"
+            android:layout_marginTop="6dp"
+            android:text="2029"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintTop_toTopOf="@+id/year_label"
             app:layout_constraintVertical_bias="0.757" />
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
 
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:id="@+id/linearb"
-        android:layout_width="404dp"
-        android:layout_height="90dp"
-        android:gravity="left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@id/proceedbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".5"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/linearm"
+        app:layout_constraintVertical_bias="0.136"
         tools:ignore="MissingConstraints">
 
         <TextView
             android:id="@+id/total_amt_to_pay"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_marginStart="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
             android:text="TOTAL AMOUNT TO PAY :"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="569dp" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/amount_proceed"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_marginStart="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="26dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@+id/total_amt_to_pay"
             android:text="amount"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/total_amt_to_pay"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="569dp" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            app:layout_constraintStart_toEndOf="@+id/total_amt_to_pay" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/proceedbutton"

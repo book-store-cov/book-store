@@ -77,18 +77,11 @@
                 app:layout_constraintTop_toTopOf="@+id/decrement_btn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/qtySellingPrice"
-            style="@style/CartItemsTextStyle"
-            android:layout_below="@+id/qtyCounterLayout"
-            android:layout_alignParentEnd="true"
-            android:gravity="end"
-            android:text="1 x 20" />
 
         <TextView
             android:id="@+id/itemFinalPrice"
             style="@style/CartItemsTextStyle"
-            android:layout_below="@id/qtySellingPrice"
+            android:layout_below="@id/qtyCounterLayout"
             android:layout_alignParentEnd="true"
             android:gravity="end"
             android:text="20.00"

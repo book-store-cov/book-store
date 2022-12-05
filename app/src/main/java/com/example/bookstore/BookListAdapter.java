@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.bookstore.bookList.OnClickListener;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -24,12 +25,14 @@ import java.util.ArrayList;
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHolder> {
 
     ArrayList<BookListData> bookListData;
-    Context context;
+    OnClickListener listener;
     View view;
 
-    public BookListAdapter(ArrayList<BookListData> bookListData, Context activity) {
+
+    public BookListAdapter(ArrayList<BookListData> bookListData, OnClickListener listener) {
         this.bookListData = bookListData;
-        this.context = activity;
+        this.listener = listener;
+
     }
 
     @NonNull
@@ -37,6 +40,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         view = layoutInflater.inflate(R.layout.activity_book_list, parent, false);
+
+
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -46,6 +51,9 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //final BookListData bookListDataArray = bookListData[position];
+
+
+
         BookListData bookListDataArray = bookListData.get(position);
         if(bookListDataArray.getBookTitle()!=null) {
             holder.bookName.setText(bookListDataArray.getBookTitle());
@@ -63,8 +71,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Toast.makeText(context, bookListDataArray.getBookTitle(), Toast.LENGTH_SHORT).show();
+                listener.onBookClick(view, holder.getAbsoluteAdapterPosition());
             }
         });
     }

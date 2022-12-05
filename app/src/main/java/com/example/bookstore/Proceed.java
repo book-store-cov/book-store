@@ -32,10 +32,11 @@ public class Proceed extends AppCompatActivity {
             public void onClick(View v) {
                 // Intent class will help to go to next activity using
                 Intent i = new Intent(getApplicationContext(),ShipmentDetails.class);
+                i.putExtra("isBackToProceed", true);
                 startActivity(i);
             }
         });
-        View imageView1 = findViewById(R.id.editpayment);
+        View imageView1 = findViewById(R.id.edit_payment);
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +52,7 @@ public class Proceed extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(Proceed.this);
-                builder.setTitle(" Alert")
+                builder.setTitle("Alert")
                         .setMessage("Are you sure, you want to continue ?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {

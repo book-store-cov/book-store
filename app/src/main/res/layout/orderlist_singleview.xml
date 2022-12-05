@@ -12,24 +12,42 @@
         android:id="@+id/viewForeground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/layout_padding_small">
+        android:padding="40dp">
 
         <TextView
-            android:id="@+id/itemName"
+            android:id="@+id/orderIDPlaceholder"
             style="@style/CartItemsTextStyle"
-            android:layout_width="match_parent"
-            android:gravity="start"
-            android:text="@string/label_id"
-            android:layout_toStartOf="@+id/qtyCounterLayout"
+            android:text="Order ID"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/itemID"
+            android:id="@+id/orderID"
             style="@style/CartItemsTextStyle"
-            android:layout_below="@+id/itemName"
+            android:gravity="start"
+            android:text= "Order ID"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/orderPricePlaceholder"
+            style="@style/CartItemsTextStyle"
+            android:layout_width="match_parent"
+            android:gravity="start"
+            android:text="Total Price"
+            android:layout_below="@+id/orderID"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/orderPrice"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/orderPrice"
+            style="@style/CartItemsTextStyle"
+            android:layout_below="@+id/orderID"
             android:gravity="start"
             android:text="@string/label_price"
+            android:layout_alignParentRight="true"
             android:textStyle="bold"/>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/qtyCounterLayout"
@@ -37,18 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true">
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/view_btn"
-                android:layout_width="76dp"
-                android:layout_height="49dp"
-                android:backgroundTint="@color/primaryColor"
-                android:foregroundGravity="center"
-                android:gravity="center"
-                android:text="View"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
