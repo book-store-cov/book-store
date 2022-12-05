@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -50,6 +52,9 @@ public class AddBook extends AppCompatActivity {
     Uri imageUri;
     String imageName;
 
+    ImageView uploadImageView;
+    EditText publicationDateView;
+
     String displayMonth, displayDate,displayYear;
     private int pDate, pMonth, pYear ;
     private int price;
@@ -60,51 +65,15 @@ public class AddBook extends AppCompatActivity {
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityAddBookBinding.inflate(getLayoutInflater());
-
         setContentView(R.layout.activity_add_book);
 
+        uploadImageView = findViewById(R.id.addBookUpload);
+        publicationDateView = findViewById(R.id.addBookPublicationDate);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        bottomNav.setSelectedItemId(R.id.navbar_home);
-        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                switch(item.getItemId()){
-                    case R.id.navbar_orders:
-                        Intent intent = new Intent(AddBook.this, OrderList.class);
-                        startActivity(intent);
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navbar_cart:
-                        Intent intent1 = new Intent(AddBook.this, Cart.class);
-                        startActivity(intent1);
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.navbar_logout:
-//                        Logout;
-                        return true;
-                    case R.id.navbar_home:
-                        Intent intent2 = new Intent(AddBook.this, BookListMain.class);
-                        startActivity(intent2);
-                        overridePendingTransition(0,0);
-                        return true;
-
-                }
-                return false;
-            }
-        });
-
-
-
-
-
-        binding.addBookUpload.setOnClickListener(new View.OnClickListener() {
+        uploadImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 addImage();
             }
         });
@@ -151,7 +120,7 @@ public class AddBook extends AppCompatActivity {
             }
         });
 //        Date picker set up
-        binding.addBookPublicationDate.setOnClickListener(new View.OnClickListener() {
+        publicationDateView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final Calendar Cal =  Calendar.getInstance();
@@ -182,6 +151,40 @@ public class AddBook extends AppCompatActivity {
                 Log.d("debugThis", "entered");
             }
         });
+
+
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setSelectedItemId(R.id.navbar_home);
+        bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch(item.getItemId()){
+                    case R.id.navbar_orders:
+                        Intent intent = new Intent(AddBook.this, OrderList.class);
+                        startActivity(intent);
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navbar_cart:
+                        Intent intent1 = new Intent(AddBook.this, Cart.class);
+                        startActivity(intent1);
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.navbar_logout:
+//                        Logout;
+                        return true;
+                    case R.id.navbar_home:
+                        Intent intent2 = new Intent(AddBook.this, BookListMain.class);
+                        startActivity(intent2);
+                        overridePendingTransition(0,0);
+                        return true;
+
+                }
+                return false;
+            }
+        });
+
+
 
 
     }
