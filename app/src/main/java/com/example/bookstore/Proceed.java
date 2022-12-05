@@ -36,7 +36,7 @@ public class Proceed extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        View imageView1 = findViewById(R.id.editpayment);
+        View imageView1 = findViewById(R.id.edit_payment);
 
         imageView1.setOnClickListener(new View.OnClickListener() {
             @Override
