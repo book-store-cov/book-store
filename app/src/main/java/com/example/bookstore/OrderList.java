@@ -47,7 +47,7 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
 
 
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerCartItems);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerCartItemsp);
         // set a LinearLayoutManager with default vertical orientation
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(OrderList.this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -61,7 +61,7 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     HashMap<String, Object> data = (HashMap<String, Object>) dataSnapshot.getValue();
-                    OrderListView orderList = new OrderListView(data.get("title"), data.get("ISBN"), data.get("price"), data.get("imageURL"), data.get("orderID"));
+                    OrderListView orderList = new OrderListView(data.get("totalPrice"), data.get("orderID"));
                     Log.d("debug2", "order list1" + orderList);
 
                     orderListViews.add(orderList);

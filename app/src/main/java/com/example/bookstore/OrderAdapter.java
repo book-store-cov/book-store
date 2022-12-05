@@ -52,8 +52,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
 //            holder.bookName.setText(orderListDataArray.getBookTitle());
 //        }
         holder.orderID.setText(orderListDataArray.getOrderID());
-        if (orderListDataArray.getBookPrice() != null) {
-            holder.orderPrice.setText(orderListDataArray.getBookPrice() + "");
+        if (orderListDataArray.getTotalPrice() != null) {
+            holder.orderPrice.setText(orderListDataArray.getTotalPrice() + "");
         }
 
 //        try {
