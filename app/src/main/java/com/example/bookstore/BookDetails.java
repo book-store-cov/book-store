@@ -122,7 +122,7 @@ public class BookDetails extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists() && snapshot.getValue(boolean.class)){
-                    button.setVisibility(View.GONE);
+                    //button.setVisibility(View.GONE);
                 }
             }
             @Override
