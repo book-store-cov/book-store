@@ -29,8 +29,6 @@ public class OrderBook {
         this.ISBN = ISBN;
     }
 
-
-
     public int getCount() {
         return count;
     }
@@ -46,12 +44,5 @@ public class OrderBook {
     public void setPrice(int price) {
         this.price = price;
     }
-
-
-
-
-
-
-
 
 }

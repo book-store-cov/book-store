@@ -3,7 +3,6 @@ package com.example.bookstore;
 import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,13 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.bookstore.databinding.ActivityBookListMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,8 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -40,8 +32,7 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
     ActivityBookListMainBinding binding;
     DatabaseReference database;
     ArrayList<BookListData> bookListTemp;
-    OnClickListener onClickListener;
-    //Button buttonTraveller;
+    Button buttonTraveller;
 
 
     @Override
@@ -54,7 +45,7 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
 
         database = FirebaseDatabase.getInstance().getReference().child("books");
         bookListTemp = new ArrayList<BookListData>();
-        //buttonTraveller = findViewById(R.id.buttonTraveller);
+        buttonTraveller = findViewById(R.id.buttonTraveller);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -87,12 +78,12 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
             }
         });
 
-        /*buttonTraveller.setOnClickListener(new View.OnClickListener() {
+        buttonTraveller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(BookListMain.this, Register.class));
+                startActivity(new Intent(BookListMain.this, AddBook.class));
             }
-        });*/
+        });
 
 
 

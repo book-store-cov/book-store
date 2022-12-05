@@ -151,7 +151,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <!--<TextView
+        <TextView
             android:id="@+id/addBookNumberHeader"
             android:layout_width="91dp"
             android:layout_height="35dp"
@@ -179,7 +179,7 @@
             app:layout_constraintBottom_toTopOf="@+id/addBookSubmit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.426"
-            app:layout_constraintStart_toEndOf="@+id/addBookNumber" /> -->
+            app:layout_constraintStart_toEndOf="@+id/addBookNumber" />
         <Button
             android:id="@+id/addBookSubmit"
             android:layout_width="wrap_content"

@@ -60,7 +60,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
         }
         holder.bookAuthor.setText(bookListDataArray.getBookAuthor());
         if(bookListDataArray.getBookPrice()!=null) {
-            holder.bookPrice.setText(bookListDataArray.getBookPrice()+"");
+            holder.bookPrice.setText("£"+bookListDataArray.getBookPrice()+"");
         }
 
         try {

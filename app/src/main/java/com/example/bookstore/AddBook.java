@@ -20,6 +20,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -50,20 +52,105 @@ public class AddBook extends AppCompatActivity {
     Uri imageUri;
     String imageName;
 
+    ImageView uploadImageView;
+    EditText publicationDateView;
+
     String displayMonth, displayDate,displayYear;
     private int pDate, pMonth, pYear ;
     private int price;
-    //private int bCount;
+    private int bCount;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityAddBookBinding.inflate(getLayoutInflater());
-
         setContentView(R.layout.activity_add_book);
+
+        uploadImageView = findViewById(R.id.addBookUpload);
+        publicationDateView = findViewById(R.id.addBookPublicationDate);
+
+        uploadImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addImage();
+            }
+        });
+        binding.addBookSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadImage();
+            }
+        });
+
+//        price slider listener
+
+        binding.addBookPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //Get the thumb bound and get its left value
+                price= seekBar.getThumb().getBounds().left;
+                binding.addBookPriceHeader.setText("Retail Price: £" + price);
+
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+
+        });
+
+        binding.addBookNumber.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                bCount = seekBar.getThumb().getBounds().left;
+                binding.count.setText(bCount);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+//        Date picker set up
+        publicationDateView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Calendar Cal =  Calendar.getInstance();
+                pDate = Cal.get(Calendar.DATE);
+                pMonth = Cal.get(Calendar.MONTH);
+                pYear = Cal.get(Calendar.YEAR);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(AddBook.this, android.R.style.Theme_DeviceDefault_Dialog, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int date) {
+                        String fDate = String.valueOf(date);
+                        String fMonth = String.valueOf(month);
+                        if(date<10){
+                            fDate = "0"+fDate;
+                        }
+                        if(month<10){
+                            fMonth = "0"+fMonth;
+                        }
+                        String dateTxt = fDate+"/"+fMonth+"/"+year;
+                        binding.addBookPublicationDate.setText(dateTxt);
+                        displayMonth = fMonth;
+                        displayDate = fDate;
+                        displayYear = String.valueOf(year);
+
+                    }
+                }, pYear, pMonth, pDate);
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
+                datePickerDialog.show();
+                Log.d("debugThis", "entered");
+            }
+        });
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
@@ -98,90 +185,6 @@ public class AddBook extends AppCompatActivity {
         });
 
 
-
-
-
-        binding.addBookUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                addImage();
-            }
-        });
-        binding.addBookSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadImage();
-            }
-        });
-
-//        price slider listener
-
-        binding.addBookPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //Get the thumb bound and get its left value
-                price= seekBar.getThumb().getBounds().left;
-                binding.addBookPriceHeader.setText("Retail Price: £" + price);
-
-            }
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
-
-        });
-
-        /*binding.addBookNumber.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                bCount = seekBar.getThumb().getBounds().left;
-                binding.count.setText(bCount);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });*/
-//        Date picker set up
-        binding.addBookPublicationDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Calendar Cal =  Calendar.getInstance();
-                pDate = Cal.get(Calendar.DATE);
-                pMonth = Cal.get(Calendar.MONTH);
-                pYear = Cal.get(Calendar.YEAR);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AddBook.this, android.R.style.Theme_DeviceDefault_Dialog, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int date) {
-                        String fDate = String.valueOf(date);
-                        String fMonth = String.valueOf(month);
-                        if(date<10){
-                            fDate = "0"+fDate;
-                        }
-                        if(month<10){
-                            fMonth = "0"+fMonth;
-                        }
-                        String dateTxt = fDate+"/"+fMonth+"/"+year;
-                        binding.addBookPublicationDate.setText(dateTxt);
-                        displayMonth = fMonth;
-                        displayDate = fDate;
-                        displayYear = String.valueOf(year);
-
-                    }
-                }, pYear, pMonth, pDate);
-                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
-                datePickerDialog.show();
-                Log.d("debugThis", "entered");
-            }
-        });
 
 
     }
@@ -263,7 +266,7 @@ public class AddBook extends AppCompatActivity {
             book.put("description", description);
             book.put("imageURL", imgLink);
             book.put("price", price);
-            //book.put("count", bCount);
+            book.put("count", bCount);
 
             realtimeDB.child("books").child(ISBN).setValue(book).addOnSuccessListener(new OnSuccessListener() {
                 @Override
@@ -293,6 +296,7 @@ public class AddBook extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 100);
+
     }
 
     //    on selection of image from files, add imageUri to the element
