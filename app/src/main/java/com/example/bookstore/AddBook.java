@@ -53,7 +53,7 @@ public class AddBook extends AppCompatActivity {
     String displayMonth, displayDate,displayYear;
     private int pDate, pMonth, pYear ;
     private int price;
-    //private int bCount;
+    private int bCount;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -133,7 +133,7 @@ public class AddBook extends AppCompatActivity {
 
         });
 
-        /*binding.addBookNumber.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        binding.addBookNumber.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 bCount = seekBar.getThumb().getBounds().left;
@@ -149,7 +149,7 @@ public class AddBook extends AppCompatActivity {
             public void onStopTrackingTouch(SeekBar seekBar) {
 
             }
-        });*/
+        });
 //        Date picker set up
         binding.addBookPublicationDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,7 +263,7 @@ public class AddBook extends AppCompatActivity {
             book.put("description", description);
             book.put("imageURL", imgLink);
             book.put("price", price);
-            //book.put("count", bCount);
+            book.put("count", bCount);
 
             realtimeDB.child("books").child(ISBN).setValue(book).addOnSuccessListener(new OnSuccessListener() {
                 @Override
@@ -293,6 +293,7 @@ public class AddBook extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 100);
+
     }
 
     //    on selection of image from files, add imageUri to the element

@@ -12,11 +12,11 @@
 
     >
 
-      <!--<Button
+      <Button
           android:id="@+id/buttonTraveller"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:text="Button" />-->
+          android:text="Button" />
 
       <RelativeLayout
           android:id="@+id/list_layout"
