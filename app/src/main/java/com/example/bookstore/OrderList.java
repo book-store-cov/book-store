@@ -15,13 +15,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bookstore.databinding.ActivityOrderListBinding;
+import com.example.bookstore.orders.OnOrderClickListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
-public class OrderList extends AppCompatActivity implements IClickListener{
-    private ArrayList<OrderListView> orderListViews;
+public class OrderList extends AppCompatActivity implements OnOrderClickListener {
+
+    DatabaseReference database;
+    ArrayList<OrderListView> orderListViews;
+    //private ArrayList<OrderListView> orderListViews;
     ActivityOrderListBinding binding;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -31,7 +41,12 @@ public class OrderList extends AppCompatActivity implements IClickListener{
 
         setContentView(R.layout.activity_order_list);
 
-        RecyclerView recyclerView = (RecyclerView) binding.recyclerCartItems;
+        database = FirebaseDatabase.getInstance().getReference().child("orders");
+        orderListViews = new ArrayList<OrderListView>();
+
+
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerCartItems);
         // set a LinearLayoutManager with default vertical orientation
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(OrderList.this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -39,13 +54,30 @@ public class OrderList extends AppCompatActivity implements IClickListener{
         OrderAdapter orderAdapter = new OrderAdapter(OrderList.this, orderListViews);
         recyclerView.setAdapter(orderAdapter); // set the Adapter to RecyclerView
 
-        binding.shoppingBtn.setOnClickListener(new View.OnClickListener() {
+
+        database.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(OrderList.this,BookListMain.class);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    HashMap<String, Object> data = (HashMap<String, Object>) dataSnapshot.getValue();
+                    OrderListView orderList = new OrderListView(data.get("title"), data.get("ISBN"), data.get("price"), data.get("imageURL"), data.get("orderID"));
+                    Log.d("debug2", "order list1" + orderList);
+
+                    orderListViews.add(orderList);
+                }
+                Log.d("debug2", "order list" + orderListViews);
+                orderAdapter.notifyDataSetChanged();
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setSelectedItemId(R.id.navbar_orders);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -84,19 +116,12 @@ public class OrderList extends AppCompatActivity implements IClickListener{
 
 
 
-    @Override
-    public void onIncrementClick(int price) {
+  @Override
+    public void onOrderClick(View view, int position){
+        Intent i = new Intent(OrderList.this, OrderHistory.class);
+        i.putExtra("orderId", orderListViews.get(position).getOrderID());
+        startActivity(i);
+  }
 
-    }
 
-    @Override
-    public void onDecrementClick(int price) {
-
-    }
-
-    @Override
-    public void onItemClick() {
-        Intent myIntent = new Intent(OrderList.this, OrderHistory.class);
-        this.startActivity(myIntent);
-    }
 }

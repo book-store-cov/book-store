@@ -72,6 +72,8 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
                     bookListTemp.add(bookList);
                 }
 
+
+
                 bookListAdapter.notifyDataSetChanged();
 
             }
