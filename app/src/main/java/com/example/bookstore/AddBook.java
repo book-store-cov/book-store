@@ -53,6 +53,7 @@ public class AddBook extends AppCompatActivity {
     String displayMonth, displayDate,displayYear;
     private int pDate, pMonth, pYear ;
     private int price;
+    //private int bCount;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -118,19 +119,37 @@ public class AddBook extends AppCompatActivity {
 
         binding.addBookPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    //Get the thumb bound and get its left value
-                    price= seekBar.getThumb().getBounds().left;
-                    binding.addBookPriceHeader.setText("Retail Price: £" + price);
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                //Get the thumb bound and get its left value
+                price= seekBar.getThumb().getBounds().left;
+                binding.addBookPriceHeader.setText("Retail Price: £" + price);
 
-                }
+            }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {}
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {}
 
         });
+
+        /*binding.addBookNumber.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                bCount = seekBar.getThumb().getBounds().left;
+                binding.count.setText(bCount);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });*/
 //        Date picker set up
         binding.addBookPublicationDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +179,7 @@ public class AddBook extends AppCompatActivity {
                 }, pYear, pMonth, pDate);
                 datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
                 datePickerDialog.show();
+                Log.d("debugThis", "entered");
             }
         });
 
@@ -171,26 +191,26 @@ public class AddBook extends AppCompatActivity {
     //    upload image to firebase and get the download url
     private void uploadImage() {
         if(imageUri!=null){
-        storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference imageStoreRef = storageRef.child("images/"+user.getUid()+"/"+imageName);
-        UploadTask uploadTask = imageStoreRef.putFile(imageUri);
+            storageRef = FirebaseStorage.getInstance().getReference();
+            StorageReference imageStoreRef = storageRef.child("images/"+user.getUid()+"/"+imageName);
+            UploadTask uploadTask = imageStoreRef.putFile(imageUri);
 
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                setImageDownloadUri();
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    setImageDownloadUri();
 
-            }
-        });
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                e.printStackTrace();
-               Toast.makeText(AddBook.this, "Failed to upload image!", Toast.LENGTH_SHORT ).show();
+                }
+            });
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(AddBook.this, "Failed to upload image!", Toast.LENGTH_SHORT ).show();
 
 
-            }
-        });
+                }
+            });
         }else {
             Toast.makeText(AddBook.this, "Please complete the form!", Toast.LENGTH_SHORT).show();
         }
@@ -243,22 +263,23 @@ public class AddBook extends AppCompatActivity {
             book.put("description", description);
             book.put("imageURL", imgLink);
             book.put("price", price);
+            //book.put("count", bCount);
 
-           realtimeDB.child("books").child(ISBN).setValue(book).addOnSuccessListener(new OnSuccessListener() {
-               @Override
-               public void onSuccess(Object o) {
+            realtimeDB.child("books").child(ISBN).setValue(book).addOnSuccessListener(new OnSuccessListener() {
+                @Override
+                public void onSuccess(Object o) {
 
-                   Intent intent = new Intent(AddBook.this, BookListMain.class);
-                   startActivity(intent);
-               }
+                    Intent intent = new Intent(AddBook.this, BookListMain.class);
+                    startActivity(intent);
+                }
             }).addOnFailureListener(new OnFailureListener() {
-               @Override
-               public void onFailure(@NonNull Exception e) {
-                   e.printStackTrace();
-                   Toast.makeText(AddBook.this, "Failed to add book!", Toast.LENGTH_SHORT).show();
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(AddBook.this, "Failed to add book!", Toast.LENGTH_SHORT).show();
 
-               }
-           });
+                }
+            });
 
         }
 
@@ -266,7 +287,7 @@ public class AddBook extends AppCompatActivity {
 
     }
 
-//    Selecting image from files
+    //    Selecting image from files
     private void addImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -274,7 +295,7 @@ public class AddBook extends AppCompatActivity {
         startActivityForResult(intent, 100);
     }
 
-//    on selection of image from files, add imageUri to the element
+    //    on selection of image from files, add imageUri to the element
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super .onActivityResult(requestCode, resultCode, data);
@@ -294,26 +315,26 @@ public class AddBook extends AppCompatActivity {
         String res = null;
         Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
         if(uri.getScheme().equals("content")){
-        try{
-            if(cursor!=null && cursor.moveToFirst()){
-                res = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+            try{
+                if(cursor!=null && cursor.moveToFirst()){
+                    res = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                }
+            }finally {
+                cursor.close();
             }
-        }finally {
-            cursor.close();
-        }
-        if(res==null){
-            res = uri.getPath();
-            int requiredSection= res.lastIndexOf('/');
-            if(requiredSection!=-1){
-                res = res.substring(requiredSection+1);
+            if(res==null){
+                res = uri.getPath();
+                int requiredSection= res.lastIndexOf('/');
+                if(requiredSection!=-1){
+                    res = res.substring(requiredSection+1);
+                }
             }
-        }
         }
         return res;
 
     }
 
-//    validate date format
+    //    validate date format
     public boolean validateDate(String date){
 
         final String DATE_PATTERN =
@@ -327,28 +348,28 @@ public class AddBook extends AppCompatActivity {
             String month = displayMonth;
 
             int year = Integer.parseInt(displayYear);
-                if (day!=null && month!=null && (day.equals("31") && (month.equals("4") || month.equals("6") || month.equals("9") ||
-                                month.equals("11") || month.equals("04") ||month.equals("06") ||
-                                month.equals("09")))
-                ){
-                    return false; // only 1,3,5,7,8,10,12 has 31 days
-                }
-                else if (month.equals("2") || month.equals("02")) {
-                    //leap year
-                    if(year % 4==0){
-                        return !day.equals("30") && !day.equals("31");
-                    }
-                    else{
-                        return !day.equals("29") && !day.equals("30") && !day.equals("31");
-                    }
+            if (day!=null && month!=null && (day.equals("31") && (month.equals("4") || month.equals("6") || month.equals("9") ||
+                    month.equals("11") || month.equals("04") ||month.equals("06") ||
+                    month.equals("09")))
+            ){
+                return false; // only 1,3,5,7,8,10,12 has 31 days
+            }
+            else if (month.equals("2") || month.equals("02")) {
+                //leap year
+                if(year % 4==0){
+                    return !day.equals("30") && !day.equals("31");
                 }
                 else{
-                    return true;
+                    return !day.equals("29") && !day.equals("30") && !day.equals("31");
                 }
             }
-        else{
-                return false;
+            else{
+                return true;
             }
+        }
+        else{
+            return false;
+        }
 
 
     }
