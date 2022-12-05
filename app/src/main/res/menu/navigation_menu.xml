@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item
-    android:id="@+id/navbar_home"
-    android:title="@string/nav_home"
-    />
     <item
-        android:id="@+id/navbar_books"
-        android:title="@string/nav_books"
+        android:id="@+id/navbar_home"
+        android:title="@string/nav_home"
+        android:icon="@drawable/ic_baseline_home_24"
         />
     <item
         android:id="@+id/navbar_orders"
         android:title="@string/nav_orders"
-        /><item
-    android:id="@+id/navbar_profile"
-    android:title="@string/nav_profile"
-    />
-
-    <item
-        android:id="@+id/navbar_add_book"
-        android:title="@string/nav_add_book"
+        android:icon="@drawable/ic_baseline_view_list_24"
         />
-
-
-
+    <item
+        android:id="@+id/navbar_cart"
+        android:title="@string/nav_cart"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        />
+    <item
+        android:id="@+id/navbar_logout"
+        android:title="@string/logout"
+        android:icon="@drawable/ic_baseline_logout_24"
+        />
 </menu>

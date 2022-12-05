@@ -1,0 +1,92 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="2dp"
+    app:cardCornerRadius="0dp"
+    app:elevation="0dp">
+
+
+    <RelativeLayout
+        android:id="@+id/viewForeground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/layout_padding_small">
+
+        <TextView
+            android:id="@+id/bookName"
+            style="@style/CartItemsTextStyle"
+            android:layout_width="match_parent"
+            android:layout_toStartOf="@+id/qtyCounterLayout"
+            android:gravity="start"
+            android:text="@string/label_item_name"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bookId"
+            style="@style/CartItemsTextStyle"
+            android:layout_below="@+id/bookName"
+            android:gravity="start"
+            android:text="Item ID" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/qtyCounterLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/decrement_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/primaryColor"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:text="-"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/qtyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:gravity="center"
+                android:paddingEnd="@dimen/layout_padding"
+                android:paddingStart="@dimen/layout_padding"
+                android:textSize="@dimen/text_x_large"
+                app:layout_constraintStart_toEndOf="@+id/decrement_btn"
+                app:layout_constraintTop_toTopOf="@id/increment_btn"
+                app:layout_constraintBottom_toBottomOf="@id/increment_btn"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/increment_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/primaryColor"
+                android:gravity="center"
+                android:text="+"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/decrement_btn"
+                app:layout_constraintStart_toEndOf="@id/qtyText"
+                app:layout_constraintTop_toTopOf="@+id/decrement_btn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/itemFinalPrice"
+            style="@style/CartItemsTextStyle"
+            android:layout_below="@id/qtyCounterLayout"
+            android:layout_alignParentEnd="true"
+            android:gravity="end"
+            android:text="20.00"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
