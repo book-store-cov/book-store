@@ -8,15 +8,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.bookstore.cart.CartData;
 import com.example.bookstore.databinding.ActivityCartBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,12 +33,13 @@ import java.util.HashMap;
 
 
 public class Cart extends AppCompatActivity implements IClickListener  {
-    private ArrayList<CartData> cartList;
-    IClickListener iClickListener;
-    private TextView priceButton;
-    private int totalPrice = 0;
+    ArrayList<CartData> cartList = new ArrayList<CartData>();
+    private TextView totalValue, emptyCartText;
     ActivityCartBinding binding;
     String uid;
+    DatabaseReference dbRef;
+    DatabaseReference cartRef;
+    CartAdapter cartAdapter;
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
@@ -48,11 +51,15 @@ public class Cart extends AppCompatActivity implements IClickListener  {
         if(currentUser!=null) {
             uid = currentUser.getUid();
         }
+        dbRef= FirebaseDatabase.getInstance().getReference();
+        cartRef =  dbRef.child("cart").child(uid);
 
         setContentView(R.layout.activity_cart);
 
-        final Button button = (Button) binding.proceedToCheckout;
-         priceButton = (TextView) binding.subtotal;
+        final Button button = findViewById(R.id.proceedToCheckout);
+
+         totalValue = findViewById(R.id.total_value);
+         emptyCartText = findViewById(R.id.empty_cart_text);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,32 +70,41 @@ public class Cart extends AppCompatActivity implements IClickListener  {
             }
         });
 
-
-        RecyclerView recyclerView = (RecyclerView) binding.recyclerCartItems;
-        // set a LinearLayoutManager with default vertical orientation
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(Cart.this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        //  call the constructor of CustomAdapter to send the reference and data to Adapter
-        CartAdapter cartAdapter = new CartAdapter(Cart.this, cartList);
-        recyclerView.setAdapter(cartAdapter); // set the Adapter to RecyclerView
-
-        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-
-
-        DatabaseReference cartRef = dbRef.child("cart").child(uid);
+        RecyclerView recyclerView = findViewById(R.id.recyclerCartItems);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setHasFixedSize(true);
+        cartAdapter = new CartAdapter( this, cartList);
+        recyclerView.setAdapter(cartAdapter);
 
 
         cartRef.addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
+                    emptyCartText.setVisibility(View.GONE);
                     for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    CartData cartObj = dataSnapshot.getValue(CartData.class);
-                    cartList.add(cartObj);
+                        CartData cartObj = dataSnapshot.getValue(CartData.class);
+                        int existingCartItem = isExistingCartItem(cartObj);
+                        if(existingCartItem>-1){
+                            cartList.set(existingCartItem,cartObj );
+
+                        }else {
+                            cartList.add(cartObj);
+
+                        }
                     }
-                    cartAdapter.notifyDataSetChanged();
+                    totalValue.setText("£"+getTotalPrice(cartList));
 
                 }
+                else {
+                    emptyCartText.setVisibility(View.VISIBLE);
+                    totalValue.setText("£0.00");
+
+                }
+                cartAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -96,10 +112,6 @@ public class Cart extends AppCompatActivity implements IClickListener  {
 
             }
         });
-
-
-
-
 
 
         //BOTTOM NAVIGATION SETUP
@@ -134,41 +146,88 @@ public class Cart extends AppCompatActivity implements IClickListener  {
             }
         });
 
-
-
-
     }
 
 
 
+    public int getTotalPrice(ArrayList<CartData> cartList){
+        int totalPrice = 0;
+        for(CartData cartItem: cartList){
+            totalPrice += (cartItem.getPrice()*cartItem.getCount());
+
+        }
+        return totalPrice;
+    }
 
 
-    public ArrayList getDummyData()
-    { ArrayList cartItems = new ArrayList<>();
-        CartList cartList1=new CartList("book1","Merly1",25,1,1);
-        CartList cartList2=new CartList("book2","Merly2",50,2,1);
-        CartList cartList3=new CartList("book3","Merly3",10,3,1);
-        CartList cartList4=new CartList("book4","Merly4",100,4,1);
+    public int isExistingCartItem(CartData cartItem){
+     int index = -1;
 
-        cartItems.add(cartList1);
-        cartItems.add(cartList2);
-        cartItems.add(cartList3);
-        cartItems.add(cartList4);
+     for(int i=0; i<cartList.size();i++){
+         if(cartList.get(i).getISBN()==cartItem.getISBN()){
+             return i;
+         }
+     }
 
-        return cartItems;
+        return index;
+    }
+
+
+
+    @Override
+    public void onIncrementClick(CartData cartObj) {
+
+
+        int count = cartObj.getCount();
+        count++;
+        cartRef.child(cartObj.getISBN()).child("count").setValue(count).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Cart.this, "Item not added! Try again.", Toast.LENGTH_SHORT);
+            }
+        });
+
 
     }
 
     @Override
-    public void onIncrementClick(int price) {
-        totalPrice = totalPrice+price;
-priceButton.setText(""+totalPrice);
-    }
+    public void onDecrementClick(CartData cartObj) {
+        int count = cartObj.getCount();
+        count--;
+        if(count<1){
+            cartRef.child(cartObj.getISBN()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    cartList.remove(isExistingCartItem(cartObj));
+                    cartAdapter.notifyDataSetChanged();
+                    totalValue.setText("£"+getTotalPrice(cartList));
 
-    @Override
-    public void onDecrementClick(int price) {
-        totalPrice = totalPrice-price;
-        priceButton.setText(""+totalPrice);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Cart.this, "Failed to remove book! Try again.", Toast.LENGTH_SHORT );
+                }
+            });
+        }
+        else{
+
+            cartRef.child(cartObj.getISBN()).child("count").setValue(count).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Cart.this, "Item not added! Try again.", Toast.LENGTH_SHORT);
+                }
+            });
+        }
     }
 
     @Override

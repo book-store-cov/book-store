@@ -16,23 +16,38 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class ShipmentDetails extends AppCompatActivity{
 
     ActivityShipmentDetailsBinding binding;
+    boolean isProceedCheck = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shipment_details);
         final Button button = (Button) this.findViewById(R.id.adddetails);
+        binding = ActivityShipmentDetailsBinding.inflate(getLayoutInflater());
 
+
+        if(getIntent().getExtras()!=null){
+            isProceedCheck = getIntent().getExtras().getBoolean("isBackToProceed");
+            button.setText("Back to checkout");
+        }
 
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
-                Intent i = new Intent(getApplicationContext(),Payment.class);
+                Intent i;
+                if(isProceedCheck){
+                    i= new Intent(getApplicationContext(), Proceed.class);
+                }
+                else {
+                    i = new Intent(getApplicationContext(), Payment.class);
+                }
                 startActivity(i);
 
             }
         });
+
+//        BottomNavigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setSelectedItemId(R.id.navbar_cart);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

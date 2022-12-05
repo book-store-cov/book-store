@@ -1,5 +1,6 @@
 package com.example.bookstore;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,32 +40,31 @@ IClickListener iClickListener;
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.itemNAme.setText(cartLists.get(position).getTitle());
+         holder.itemName.setText(cartLists.get(position).getTitle());
         holder.itemID.setText("" + cartLists.get(position).getISBN());
-        holder.price.setText("1 x " + cartLists.get(position).getPrice());
         holder.bookFinalPrice.setText("" + cartLists.get(position).getPrice());
-        holder.count.setText("1");
+        holder.count.setText(String.valueOf(cartLists.get(position).getCount()));
 
         holder.incrementButton.setOnClickListener(view -> {
-            count = cartLists.get(position).getCount();
-            count++;
-            cartLists.get(position).setCount(count);
-            holder.count.setText("" + count);
-            holder.price.setText(count +" x " + cartLists.get(holder.getAdapterPosition()).getPrice());
-            int price = count * cartLists.get(holder.getAdapterPosition()).getPrice();
-            holder.bookFinalPrice.setText(""+price);
-            iClickListener.onIncrementClick(cartLists.get(holder.getAdapterPosition()).getPrice());
+//            count = cartLists.get(position).getCount();
+//            count++;
+//            cartLists.get(position).setCount(count);
+//            holder.count.setText("" + count);
+//            holder.price.setText(count +" x " + cartLists.get(holder.getAdapterPosition()).getPrice());
+//            int price = count * cartLists.get(holder.getAdapterPosition()).getPrice();
+//            holder.bookFinalPrice.setText(""+price);
+            iClickListener.onIncrementClick(cartLists.get(holder.getAbsoluteAdapterPosition()));
         });
         holder.decrementButton.setOnClickListener(view -> {
-            if (count >= 1) {
-                count = cartLists.get(position).getCount();
-                count--;
-                cartLists.get(position).setCount(count);
-                holder.count.setText("" + count);
-                holder.price.setText(count +" x " + cartLists.get(holder.getAdapterPosition()).getPrice());
-                holder.bookFinalPrice.setText(""+count * cartLists.get(holder.getAdapterPosition()).getPrice());
-                iClickListener.onDecrementClick(cartLists.get(holder.getAdapterPosition()).getPrice());
-            }
+
+//                count = cartLists.get(position).getCount();
+//                count--;
+//                cartLists.get(position).setCount(count);
+//                holder.count.setText("" + count);
+//                holder.price.setText(count +" x " + cartLists.get(holder.getAdapterPosition()).getPrice());
+//                holder.bookFinalPrice.setText(""+count * cartLists.get(holder.getAdapterPosition()).getPrice());
+                iClickListener.onDecrementClick(cartLists.get(holder.getAbsoluteAdapterPosition()));
+
         });
     }
 
@@ -77,14 +77,13 @@ IClickListener iClickListener;
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView itemNAme, itemID, price, count, bookFinalPrice;
+        TextView itemName, itemID, price, count, bookFinalPrice;
         AppCompatButton incrementButton, decrementButton;
 
         ViewHolder(View itemView) {
             super(itemView);
-            itemNAme = itemView.findViewById(R.id.bookName);
+            itemName = itemView.findViewById(R.id.bookName);
             itemID = itemView.findViewById(R.id.bookId);
-            price = itemView.findViewById(R.id.qtySellingPrice);
             count = itemView.findViewById(R.id.qtyText);
             bookFinalPrice = itemView.findViewById(R.id.itemFinalPrice);
             incrementButton = itemView.findViewById(R.id.increment_btn);
