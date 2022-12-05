@@ -40,6 +40,8 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         view = layoutInflater.inflate(R.layout.activity_book_list, parent, false);
+
+
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
     }
@@ -49,7 +51,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //final BookListData bookListDataArray = bookListData[position];
-
 
 
 
