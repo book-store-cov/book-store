@@ -51,8 +51,6 @@ public class BookDetails extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 
-
-
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +64,6 @@ public class BookDetails extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_book_details);
-
         bookImage=findViewById(R.id.bookImage);
         button=findViewById(R.id.add_to_cart);
         titleText = findViewById(R.id.book_title);
@@ -225,7 +222,6 @@ public class BookDetails extends AppCompatActivity {
 
 
 //        Bottom navigation
-
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setSelectedItemId(R.id.navbar_home);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

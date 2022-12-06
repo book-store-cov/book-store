@@ -19,10 +19,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -56,11 +58,14 @@ public class AddBook extends AppCompatActivity {
     String imageName;
 
     ImageView uploadImageView;
-    EditText publicationDateView;
+    EditText publicationDateView, countDisplay, bookTitle, bookAuthor, isbnNumber, bookDescription;
+    TextView priceHeader, errorText;
+    SeekBar priceSlider;
+    Button submitButton;
 
     String displayMonth, displayDate,displayYear;
     private int pDate, pMonth, pYear ;
-    private int price;
+    private int price, count;
     private int bCount;
     String uid ;
 
@@ -82,7 +87,16 @@ public class AddBook extends AppCompatActivity {
 
 
         uploadImageView = findViewById(R.id.addBookUpload);
+        bookTitle = findViewById(R.id.addBookTitle);
+        bookAuthor = findViewById(R.id.addBookAuthor);
         publicationDateView = findViewById(R.id.addBookPublicationDate);
+        isbnNumber = findViewById(R.id.addBookISBN);
+        bookDescription = findViewById(R.id.addBookDescription);
+        priceHeader = findViewById(R.id.addBookPriceHeader);
+        countDisplay = findViewById(R.id.count);
+        priceSlider = findViewById(R.id.addBookPrice);
+        submitButton = findViewById(R.id.addBookSubmit);
+        errorText = findViewById(R.id.addBookMainErr);
 
         uploadImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +104,7 @@ public class AddBook extends AppCompatActivity {
                 addImage();
             }
         });
-        binding.addBookSubmit.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadImage();
@@ -99,13 +113,13 @@ public class AddBook extends AppCompatActivity {
 
 //        price slider listener
 
-        binding.addBookPrice.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        priceSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //Get the thumb bound and get its left value
                 price= seekBar.getThumb().getBounds().left;
-                binding.addBookPriceHeader.setText("Retail Price: £" + price);
+                priceHeader.setText("Retail Price: £" + price);
 
             }
             @Override
@@ -115,23 +129,6 @@ public class AddBook extends AppCompatActivity {
 
         });
 
-        binding.addBookNumber.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                bCount = seekBar.getThumb().getBounds().left;
-                binding.count.setText(bCount);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
 //        Date picker set up
         publicationDateView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +149,7 @@ public class AddBook extends AppCompatActivity {
                             fMonth = "0"+fMonth;
                         }
                         String dateTxt = fDate+"/"+fMonth+"/"+year;
-                        binding.addBookPublicationDate.setText(dateTxt);
+                        publicationDateView.setText(dateTxt);
                         displayMonth = fMonth;
                         displayDate = fDate;
                         displayYear = String.valueOf(year);
@@ -161,7 +158,6 @@ public class AddBook extends AppCompatActivity {
                 }, pYear, pMonth, pDate);
                 datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
                 datePickerDialog.show();
-                Log.d("debugThis", "entered");
             }
         });
 
@@ -269,23 +265,25 @@ public class AddBook extends AppCompatActivity {
     // Uploading all information of a new book to firebase
     private void uploadAllData(String imgLink) {
         DatabaseReference realtimeDB = FirebaseDatabase.getInstance().getReference();
-        String title = binding.addBookTitle.getText().toString();
-        String author = binding.addBookAuthor.getText().toString();
-        String publicationDate = binding.addBookPublicationDate.getText().toString();
-        String ISBN = binding.addBookISBN.getText().toString();
-        String description = binding.addBookDescription.getText().toString();
+        String title = bookTitle.getText().toString();
+        String author = bookAuthor.getText().toString();
+        String publicationDate = publicationDateView.getText().toString();
+        String ISBN = isbnNumber.getText().toString();
+        String description = bookDescription.getText().toString();
+        String bCount = countDisplay.getText().toString();
+        count = Integer.parseInt(bCount);
 
 
 
         if(TextUtils.isEmpty(title)|| TextUtils.isEmpty(author)|| TextUtils.isEmpty(ISBN)|| TextUtils.isEmpty(description)|| price<=0){
-            binding.addBookSubmit.setError("true");
-            binding.addBookMainErr.setText("Please complete the form!");
+            submitButton.setError("true");
+            errorText.setText("Please complete the form!");
         }else if (!validateDate(publicationDate)){
-            binding.addBookSubmit.setError("true");
-            binding.addBookMainErr.setText("Please enter a valid date!");
+            submitButton.setError("true");
+            errorText.setText("Please enter a valid date!");
         } else if (ISBN.length()>13|| ISBN.length()<10){
-            binding.addBookSubmit.setError("true");
-            binding.addBookMainErr.setText("Please enter a valid ISBN!");
+            submitButton.setError("true");
+            errorText.setText("Please enter a valid ISBN!");
         }
         else {
             Map<String, Object> book = new HashMap<>();
@@ -296,7 +294,7 @@ public class AddBook extends AppCompatActivity {
             book.put("description", description);
             book.put("imageURL", imgLink);
             book.put("price", price);
-            book.put("count", bCount);
+            book.put("count", count);
 
             realtimeDB.child("books").child(ISBN).setValue(book).addOnSuccessListener(new OnSuccessListener() {
                 @Override
@@ -337,7 +335,7 @@ public class AddBook extends AppCompatActivity {
         if(requestCode==100 && data!=null && data.getData()!=null && data.getScheme().equals("content")){
 
             imageUri = data.getData();
-            binding.addBookUpload.setImageURI(imageUri);
+            uploadImageView.setImageURI(imageUri);
             imageName = getFilename(imageUri, AddBook.this);
 
         }

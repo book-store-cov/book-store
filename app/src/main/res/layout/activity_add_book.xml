@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     android:fillViewport="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -110,18 +109,31 @@
             app:srcCompat="@drawable/calendar" />
 
 
+        <EditText
+            android:id="@+id/count"
+            android:layout_width="252dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="40dp"
+            android:ems="10"
+            android:hint="Count"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addBookDescription" />
+
         <TextView
             android:id="@+id/addBookPriceHeader"
             android:layout_width="256dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="44dp"
             android:text="@string/priceHeader"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.466"
+            app:layout_constraintHorizontal_bias="0.472"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addBookDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/count" />
 
         <SeekBar
             android:id="@+id/addBookPrice"
@@ -129,14 +141,14 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="20dp"
             android:maxWidth="15dp"
             android:maxHeight="12dp"
             android:minWidth="15dp"
             android:minHeight="12dp"
             android:splitTrack="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.338"
+            app:layout_constraintHorizontal_bias="0.438"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addBookPriceHeader" />
 
@@ -151,50 +163,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/addBookNumberHeader"
-            android:layout_width="91dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginBottom="32dp"
-            android:text="Number of books:"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/addBookSubmit"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <SeekBar
-            android:id="@+id/addBookNumber"
-            android:layout_width="166dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toEndOf="@+id/addBookNumberHeader"
-            app:layout_constraintTop_toBottomOf="@+id/addBookPrice" />
-
-        <TextView
-            android:id="@+id/count"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/addBookSubmit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.426"
-            app:layout_constraintStart_toEndOf="@+id/addBookNumber" />
         <Button
             android:id="@+id/addBookSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="72dp"
+            android:layout_marginBottom="30dp"
             android:background="@color/primaryGreen"
             android:text="@string/ab_submit_btn"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addBookPrice"
-            app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
-            android:layout_marginBottom="30dp"
-            />
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
@@ -206,7 +189,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/navigation_menu"
             />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

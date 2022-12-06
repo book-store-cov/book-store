@@ -141,12 +141,9 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
 
 
 
-
-
 //        Bottom navigation
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-
         bottomNav.setSelectedItemId(R.id.navbar_home);
 
         bottomNav.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener) item -> {
