@@ -20,8 +20,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,17 +37,14 @@ public class Payment extends AppCompatActivity{
     ActivityPaymentBinding binding;
     TextView errMessage;
     String totalAmount;
-
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
-        mAuth = FirebaseAuth.getInstance();
         binding = ActivityPaymentBinding.inflate(getLayoutInflater());
-
         errMessage = findViewById(R.id.addCardErrMsg);
 
         final Button button = (Button) this.findViewById(R.id.cardsubmit);
@@ -68,6 +68,21 @@ public class Payment extends AppCompatActivity{
 
 //        BottomNavigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference isAdminRef = dbRef.child("users").child(uid).child("isAdmin");
+        isAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if((boolean)snapshot.getValue()){
+                    bottomNav.getMenu().removeItem(R.id.navbar_cart);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         bottomNav.setSelectedItemId(R.id.navbar_cart);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -85,7 +100,8 @@ public class Payment extends AppCompatActivity{
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navbar_logout:
-//                        Logout;
+                        mAuth.signOut();
+                        startActivity(new Intent(Payment.this, Signin.class));
                         return true;
                     case R.id.navbar_home:
                         Intent intent2 = new Intent(Payment.this, BookListMain.class);

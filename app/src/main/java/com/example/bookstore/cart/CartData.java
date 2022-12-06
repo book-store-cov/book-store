@@ -13,7 +13,6 @@ public class CartData {
     int price;
 
     public CartData(Object ISBN, Object imgURL, Object count, Object title, Object price) {
-        Log.d("debug2", "inside object con");
         this.count= ((Long)count).intValue();
         this.imgURL = (String)imgURL;
         this.price = ((Long)price).intValue();
@@ -22,8 +21,6 @@ public class CartData {
     }
 
     public CartData(String ISBN, String imgURL, int count, String title,Long price){
-        Log.d("debug2", "inside string con");
-
         this.count= count;
         this.imgURL = imgURL;
         this.price =  price.intValue();

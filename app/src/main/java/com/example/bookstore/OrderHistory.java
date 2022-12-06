@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,16 +31,17 @@ public class OrderHistory extends AppCompatActivity
     String orderID;
     TextView nameText, streetAddressText, cityText, postCodeText, totalPriceText;
 
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
          orderHistoryLists= new ArrayList<OrderHistoryList>();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser =  mAuth.getCurrentUser();
         if(currentUser!=null){
             uid = currentUser.getUid();
         }
@@ -64,7 +66,7 @@ public class OrderHistory extends AppCompatActivity
         recyclerView.setAdapter(orderHistoryAdapter); // set the Adapter to RecyclerView
 
 
-        Log.d("debug4", "order referencing id: "+orderID);
+
         DatabaseReference orderRef = dbRef.child("orders").child(uid).child(orderID);
         DatabaseReference orderedBooksRef = orderRef.child("books");
 
@@ -95,8 +97,6 @@ public class OrderHistory extends AppCompatActivity
                 if(snapshot.exists()) {
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         OrderHistoryList bookList = snap.getValue(OrderHistoryList.class);
-
-                        Log.d("debug4", "order history books "+snap.getValue()+ " bookList.get value: "+ bookList.getTitle());
                         orderHistoryLists.add(bookList);
                     }
                     orderHistoryAdapter.notifyDataSetChanged();
@@ -115,6 +115,20 @@ public class OrderHistory extends AppCompatActivity
 
 //        Bottom navigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        //        admin check
+        DatabaseReference isAdminRef = dbRef.child("users").child(uid).child("isAdmin");
+        isAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if((boolean) snapshot.getValue()) {
+                    bottomNav.getMenu().removeItem(R.id.navbar_cart);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         bottomNav.setSelectedItemId(R.id.navbar_orders);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -132,7 +146,8 @@ public class OrderHistory extends AppCompatActivity
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navbar_logout:
-//                        Logout;
+                        mAuth.signOut();
+                        startActivity(new Intent(OrderHistory.this, Signin.class));
                         return true;
                     case R.id.navbar_home:
                         Intent intent2 = new Intent(OrderHistory.this, BookListMain.class);

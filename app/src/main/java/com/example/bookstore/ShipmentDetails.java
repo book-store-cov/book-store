@@ -20,8 +20,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,8 +37,7 @@ public class ShipmentDetails extends AppCompatActivity{
     boolean isProceedCheck = false;
     TextView errMessage ;
     String totalAmtIntent;
-
-    FirebaseAuth mAuth;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     String uid;
 
 
@@ -44,7 +46,7 @@ public class ShipmentDetails extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shipment_details);
         final Button button = (Button) this.findViewById(R.id.adddetails);
-        mAuth = FirebaseAuth.getInstance();
+
         binding = ActivityShipmentDetailsBinding.inflate(getLayoutInflater());
         errMessage= findViewById(R.id.addShippingError);
         binding.adddetails.setOnClickListener(new View.OnClickListener() {
@@ -55,14 +57,10 @@ public class ShipmentDetails extends AppCompatActivity{
         });
 
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser =mAuth.getCurrentUser();
         if(currentUser!=null) {
             uid = currentUser.getUid();
         }
-
-
-
-
 
         if(getIntent().getExtras()!=null){
             isProceedCheck = getIntent().getExtras().getBoolean("isBackToProceed");
@@ -79,6 +77,20 @@ public class ShipmentDetails extends AppCompatActivity{
 
 //        BottomNavigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        DatabaseReference isAdminRef = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("isAdminRef");
+        isAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if((boolean)snapshot.getValue()){
+                    bottomNav.getMenu().removeItem(R.id.navbar_cart);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         bottomNav.setSelectedItemId(R.id.navbar_cart);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -96,7 +108,8 @@ public class ShipmentDetails extends AppCompatActivity{
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navbar_logout:
-//                        Logout;
+                        mAuth.signOut();
+                        startActivity(new Intent(ShipmentDetails.this, Signin.class));
                         return true;
                     case R.id.navbar_home:
                         Intent intent2 = new Intent(ShipmentDetails.this, BookListMain.class);
@@ -164,7 +177,6 @@ public class ShipmentDetails extends AppCompatActivity{
         String regex = "^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(postCode);
-        Log.d("debug2", "matcher postcode validation"+matcher.matches());
 
         return matcher.matches();
     }

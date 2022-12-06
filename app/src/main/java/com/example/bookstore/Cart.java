@@ -40,14 +40,14 @@ public class Cart extends AppCompatActivity implements IClickListener  {
     DatabaseReference dbRef;
     DatabaseReference cartRef;
     CartAdapter cartAdapter;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCartBinding.inflate(getLayoutInflater());
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser =  mAuth.getCurrentUser();
         if(currentUser!=null) {
             uid = currentUser.getUid();
         }
@@ -116,6 +116,19 @@ public class Cart extends AppCompatActivity implements IClickListener  {
 
         //BOTTOM NAVIGATION SETUP
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        DatabaseReference isAdminRef = dbRef.child("users").child(uid).child("isAdmin");
+        isAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if((boolean)snapshot.getValue()){
+                    bottomNav.getMenu().removeItem(R.id.navbar_cart);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
         bottomNav.setSelectedItemId(R.id.navbar_cart);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -133,7 +146,8 @@ public class Cart extends AppCompatActivity implements IClickListener  {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navbar_logout:
-//                        Logout;
+                        mAuth.signOut();
+                        startActivity(new Intent(Cart.this, Signin.class));
                         return true;
                     case R.id.navbar_home:
                         Intent intent2 = new Intent(Cart.this, BookListMain.class);

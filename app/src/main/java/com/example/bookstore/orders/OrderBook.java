@@ -15,7 +15,6 @@ public class OrderBook {
     public OrderBook(){}
     public OrderBook(HashMap<String, Object> books){
         this.books = books;
-        Log.d("debug4", "count: "+books.get("count")+ " price:"+ books.get("price")+" isbn:"+books.get("ISBN"));
         this.count = ((Long)books.get("count")).intValue();
         this.price = ((Long)books.get("price")).intValue();
         this.ISBN = String.valueOf(books.get("ISBN"));

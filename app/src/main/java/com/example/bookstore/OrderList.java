@@ -34,6 +34,7 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
     ActivityOrderListBinding binding;
     String uid;
     boolean isAdmin = false;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +44,6 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
 
         orderListViews = new ArrayList<OrderListView>();
 
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             uid = currentUser.getUid();
@@ -51,17 +51,6 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
 
         DatabaseReference isUserAnAdminRef = dbRef.child("users").child(uid).child("isAdmin");
 
-//        set up admin check
-        isUserAnAdminRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                isAdmin = (boolean) snapshot.getValue();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
 
 
         //SET UP RECYCLER VIEW
@@ -87,8 +76,7 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
                         for (Map.Entry<String, Object> set : resData.entrySet()){
                             OrderListView orderObj = new OrderListView((HashMap<String, Object>) set.getValue());
                             orderListViews.add(orderObj);
-                            Log.d("debug4",  "RES DATA FOR ADMIN: "+resData);
-                        }
+                            }
 
                     }
                     orderAdapter.notifyDataSetChanged();
@@ -108,7 +96,6 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
 
                         OrderListView orderObj= snap.getValue(OrderListView.class);
                         orderListViews.add(orderObj);
-                        Log.d("debug4",  "RES DATA FOR CUSTOMER: "+snap.getValue());
                     }
                     orderAdapter.notifyDataSetChanged();
                 }
@@ -123,8 +110,21 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
 
 
 
-
+//BOTTOM NAVIGATION
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        //        set up admin check
+        isUserAnAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if( (boolean) snapshot.getValue()){
+                    bottomNav.getMenu().removeItem(R.id.navbar_cart);
+                };
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         bottomNav.setSelectedItemId(R.id.navbar_orders);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -142,7 +142,8 @@ public class OrderList extends AppCompatActivity implements OnOrderClickListener
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navbar_logout:
-//                        Logout;
+                        mAuth.signOut();
+                        startActivity(new Intent(OrderList.this, Signin.class));
                         return true;
                     case R.id.navbar_home:
                         Intent intent2 = new Intent(OrderList.this, BookListMain.class);

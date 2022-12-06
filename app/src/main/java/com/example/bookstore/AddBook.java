@@ -33,8 +33,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -59,14 +62,24 @@ public class AddBook extends AppCompatActivity {
     private int pDate, pMonth, pYear ;
     private int price;
     private int bCount;
+    String uid ;
 
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
+
+
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAddBookBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_add_book);
+
+        if(user!=null){
+            uid = user.getUid();
+        }
+
+
 
         uploadImageView = findViewById(R.id.addBookUpload);
         publicationDateView = findViewById(R.id.addBookPublicationDate);
@@ -153,7 +166,23 @@ public class AddBook extends AppCompatActivity {
         });
 
 
+//        Bottom navigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        DatabaseReference isAdminRef = FirebaseDatabase.getInstance().getReference("users").child(uid).child("isAdmin");
+
+        isAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if((boolean)snapshot.getValue()){
+                    bottomNav.getMenu().removeItem(R.id.navbar_cart);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+
         bottomNav.setSelectedItemId(R.id.navbar_home);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -171,7 +200,8 @@ public class AddBook extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navbar_logout:
-//                        Logout;
+                        mAuth.signOut();
+                        startActivity(new Intent(AddBook.this, Signin.class));
                         return true;
                     case R.id.navbar_home:
                         Intent intent2 = new Intent(AddBook.this, BookListMain.class);
