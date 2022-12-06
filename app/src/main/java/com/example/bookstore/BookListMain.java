@@ -3,17 +3,25 @@ package com.example.bookstore;
 import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.bookstore.databinding.ActivityBookListMainBinding;
+import com.example.bookstore.orders.OrderBook;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.example.bookstore.bookList.OnClickListener;
 
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,13 +30,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class BookListMain extends AppCompatActivity implements OnClickListener {
 
     ActivityBookListMainBinding binding;
-    DatabaseReference database;
+    DatabaseReference dbRef;
     ArrayList<BookListData> bookListTemp;
-    Button buttonTraveller;
+    Button addBookButton;
+    int availableBooks = 0, soldBooks=0;
+    LinearLayoutCompat tableLayout;
+    String uid = "";
+    boolean isAdmin;
+    TextView soldBookText, availableBookText;
+
+    BottomNavigationView bottomNav;
+
+
+
 
 
     @Override
@@ -38,10 +57,23 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
         binding = ActivityBookListMainBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_book_list_main);
 
+        soldBookText= findViewById(R.id.sold_books_value);
+        availableBookText= findViewById(R.id.available_books_value);
+        addBookButton = findViewById(R.id.addbook_btn);
+        tableLayout = findViewById(R.id.lineartable);
 
-        database = FirebaseDatabase.getInstance().getReference().child("books");
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            uid = currentUser.getUid();
+        }
+
+
+        dbRef = FirebaseDatabase.getInstance().getReference();
+
+        DatabaseReference bookRef = dbRef.child("books");
+
         bookListTemp = new ArrayList<BookListData>();
-        buttonTraveller = findViewById(R.id.buttonTraveller);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -52,29 +84,53 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
 
         recyclerView.setAdapter(bookListAdapter);
 
-
-        database.addValueEventListener(new ValueEventListener() {
+        bookRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     HashMap<String, Object> data = (HashMap<String, Object>) dataSnapshot.getValue();
+                    availableBooks += ((Long)data.get("count")).intValue();
                     BookListData bookList = new BookListData(data.get("title"), data.get("author"), data.get("price"), data.get("imageURL"), data.get("ISBN"));
                     bookListTemp.add(bookList);
                 }
-
-
-
+                availableBookText.setText(String.valueOf(availableBooks));
                 bookListAdapter.notifyDataSetChanged();
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-        buttonTraveller.setOnClickListener(new View.OnClickListener() {
+        DatabaseReference orderRef = dbRef.child("orders");
+        orderRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot userSnap: snapshot.getChildren()){
+                    for(DataSnapshot orderSnap: userSnap.getChildren()){
+                        HashMap<String, Object> orderData = (HashMap<String ,Object>) orderSnap.getValue();
+                        HashMap<String, Object> orderedBooks = (HashMap<String, Object>) orderData.get("books");
+                        for(Map.Entry<String, Object> set : orderedBooks.entrySet()){
+                            OrderBook bookObject = new OrderBook((HashMap<String, Object>) set.getValue());
+                            soldBooks += bookObject.getCount();
+
+                        }
+
+                    }
+                }
+                soldBookText.setText(String.valueOf(soldBooks));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+        addBookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(BookListMain.this, AddBook.class));
@@ -85,9 +141,12 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
 
 
 
+
+
 //        Bottom navigation
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+
         bottomNav.setSelectedItemId(R.id.navbar_home);
 
         bottomNav.setOnItemSelectedListener((NavigationBarView.OnItemSelectedListener) item -> {
@@ -104,7 +163,8 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
                     overridePendingTransition(0,0);
                     break;
                 case R.id.navbar_logout:
-//                        Logout;
+                    mAuth.signOut();
+                    startActivity(new Intent(BookListMain.this, Signin.class));
                     break;
                 case R.id.navbar_home:
                     Intent intent2 = new Intent(BookListMain.this, BookListMain.class);
@@ -117,15 +177,21 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
         });
 
 
-        final Button button = (Button) this.findViewById(R.id.addbook_btn);
-
-        button.setOnClickListener(new View.OnClickListener() {
-
+        //    setup admin view
+        DatabaseReference isAdminRef = dbRef.child("users").child(uid).child("isAdmin");
+        isAdminRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                isAdmin = (boolean) snapshot.getValue();
 
-                Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(i);
+                if(!isAdmin) {
+                    tableLayout.setVisibility(View.GONE);
+                }else {
+                    bottomNav.getMenu().removeItem(R.id.navbar_cart);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
@@ -137,13 +203,10 @@ public class BookListMain extends AppCompatActivity implements OnClickListener {
         return data.getISBN();
     }
 
-
-
     @Override
     public void onBookClick(View view, int position){
 
         Intent intent = new Intent(this, BookDetails.class);
-
         intent.putExtra("ISBN", getBookId(position));
         startActivity(intent);
 

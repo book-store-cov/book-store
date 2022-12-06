@@ -12,20 +12,32 @@ import android.widget.Button;
 
 import com.example.bookstore.databinding.ActivitySuccessOrderBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SuccessOrder extends AppCompatActivity{
 
     ActivitySuccessOrderBinding binding;
+    String uid;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_success_order);
         final Button button = (Button) this.findViewById(R.id.orderhistory_btn);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            uid = currentUser.getUid();
+        }
 
 
         button.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
 
@@ -34,7 +46,23 @@ public class SuccessOrder extends AppCompatActivity{
 
             }
         });
+
+//        Bottom Navigation
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        DatabaseReference isAdminRef = FirebaseDatabase.getInstance().getReference("users").child(uid).child("isAdmin");
+        isAdminRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if((boolean)snapshot.getValue()){
+                    bottomNav.getMenu().removeItem(R.id.navbar_cart);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         bottomNav.setSelectedItemId(R.id.navbar_cart);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -52,7 +80,8 @@ public class SuccessOrder extends AppCompatActivity{
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navbar_logout:
-//                        Logout;
+                        mAuth.signOut();
+                        startActivity(new Intent(SuccessOrder.this, Signin.class));
                         return true;
                     case R.id.navbar_home:
                         Intent intent2 = new Intent(SuccessOrder.this, BookListMain.class);

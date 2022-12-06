@@ -42,14 +42,14 @@ public class BookDetails extends AppCompatActivity {
     String title, imgURL;
     Long price;
 
-    FirebaseAuth mAuth;
-    String uid;
+    String uid = "", ISBN="";
 
 
     DatabaseReference fDatabse;
     DatabaseReference dRef;
 
-    boolean isAdmin= false;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
 
 
 
@@ -57,15 +57,13 @@ public class BookDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
         binding = ActivityBookDetailsBinding.inflate(getLayoutInflater());
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null) {
             uid = currentUser.getUid();
-
-
         }
+
 
         setContentView(R.layout.activity_book_details);
 
@@ -78,7 +76,9 @@ public class BookDetails extends AppCompatActivity {
         publicationDateText = findViewById(R.id.publication_date);
         descriptionText = findViewById(R.id.book_description);
 
-        String ISBN = getIntent().getExtras().getString("ISBN");
+        if(getIntent().getExtras()!=null){
+            ISBN = getIntent().getExtras().getString("ISBN");
+        }
 
 
         fDatabse = FirebaseDatabase.getInstance().getReference();
@@ -114,25 +114,6 @@ public class BookDetails extends AppCompatActivity {
 
             }
         });
-
-        //Setting up admin view
-        DatabaseReference userRef = fDatabse.child("users");
-        userRef.child(uid).child("isAdmin").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists() && snapshot.getValue(boolean.class)){
-//                    button.setVisibility(View.GONE);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-
-
 
         dRef.child("ISBN").addValueEventListener(new ValueEventListener() {
             @Override
@@ -244,12 +225,12 @@ public class BookDetails extends AppCompatActivity {
 
 
 //        Bottom navigation
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setSelectedItemId(R.id.navbar_home);
         bottomNav.setOnItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 switch(item.getItemId()){
                     case R.id.navbar_orders:
                         Intent intent = new Intent(BookDetails.this, OrderList.class);
@@ -262,7 +243,8 @@ public class BookDetails extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.navbar_logout:
-//                        Logout;
+                        mAuth.signOut();
+                        startActivity(new Intent(BookDetails.this, Signin.class));
                         return true;
                     case R.id.navbar_home:
                         Intent intent2 = new Intent(BookDetails.this, BookListMain.class);
@@ -275,10 +257,29 @@ public class BookDetails extends AppCompatActivity {
             }
         });
 
+        //Setting up admin view
+        DatabaseReference userRef = fDatabse.child("users");
+        userRef.child(uid).child("isAdmin").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists() && snapshot.getValue(boolean.class)){
+                    button.setVisibility(View.GONE);
+                    bottomNav.getMenu().removeItem(R.id.navbar_cart);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
 
     }
+
+
+
 
 }
 

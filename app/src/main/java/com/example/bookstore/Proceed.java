@@ -8,19 +8,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bookstore.cart.CartData;
-import com.example.bookstore.databinding.ActivityPaymentBinding;
 import com.example.bookstore.databinding.ActivityProceedBinding;
 import com.example.bookstore.orders.OrderBook;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +37,6 @@ public class Proceed extends AppCompatActivity {
     int totalAmtIntent = 0;
     DatabaseReference dbRef ;
 
-    FirebaseAuth mAuth;
     String uid;
 
     HashMap<String, Object> orderObj = new HashMap<>();
@@ -51,7 +46,6 @@ public class Proceed extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proceed);
-        mAuth = FirebaseAuth.getInstance();
         dbRef = FirebaseDatabase.getInstance().getReference();
 
         shippingName = findViewById(R.id.name_value);
@@ -64,7 +58,7 @@ public class Proceed extends AppCompatActivity {
 
         totalAmount = findViewById(R.id.amount_proceed);
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser!=null) {
             uid = currentUser.getUid();
         }
@@ -100,7 +94,6 @@ public class Proceed extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
                     HashMap<String, Object> card = (HashMap<String, Object>) snapshot.getValue();
-                    Log.d("debug2", "card value: " + card + " ");
                     cardNumber.setText(card.get("cardNumber").toString());
                     cardCVV.setText(card.get("cvv").toString());
                     cardExpiry.setText(card.get("expiryDate").toString());
@@ -221,7 +214,6 @@ public class Proceed extends AppCompatActivity {
             booksRef.child(ISBN).child("count").addListenerForSingleValueEvent (new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Log.d("debug2", "ALL COUNT: "+snapshot.getValue()+ " ORDERCOUNT"+ count);
                     int allCount = ((Long) snapshot.getValue()).intValue();
                     booksRef.child(ISBN).child("count").setValue(allCount-count).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

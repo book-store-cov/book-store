@@ -12,128 +12,141 @@
 
     >
 
-      <Button
-          android:id="@+id/buttonTraveller"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
 
-      <RelativeLayout
-          android:id="@+id/list_layout"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          app:layout_constraintBottom_toTopOf="@+id/bottom_nav">
-
-            <RelativeLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                  <androidx.recyclerview.widget.RecyclerView
-                      android:id="@+id/recyclerView"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_margin="2dp"
-                      android:paddingBottom="50dp"
-
-
-                />
-            </RelativeLayout>
-
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_nav"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="1dp"
-                android:background="@color/primaryGreen"
-                app:itemIconTint="@drawable/menu_item_active"
-                app:itemTextColor="@drawable/menu_item_active"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:menu="@menu/navigation_menu" />
-      </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/list_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_nav">
 
 
 
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/lineartable"
-        android:layout_width="398dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHeight_percent=".5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.066"
-        tools:ignore="MissingConstraints">
-
-        <TableLayout
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="1dp"
+            android:background="@color/primaryGreen"
+            app:itemIconTint="@drawable/menu_item_active"
+            app:itemTextColor="@drawable/menu_item_active"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/navigation_menu" />
 
-            android:background="@color/white">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lineartable"
+            android:layout_width="match_parent"
+            android:layout_height="237dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent=".5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.066"
+            tools:ignore="MissingConstraints">
 
-            <TableRow android:background="@color/primaryColor">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp"
-                    android:text="@string/sold_book"
-                    android:textColor="@color/white"
-                    android:textSize="14dp">
+                android:background="@color/white">
 
-                </TextView>
+                <TableRow android:background="@color/primaryGreen">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp"
-                    android:text="@string/available_book"
-                    android:textColor="@color/white"
-                    android:textSize="14dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:text="@string/sold_book"
+                        android:textColor="@color/white"
+                        android:textSize="16dp">
 
-                </TextView>
-            </TableRow>
+                    </TextView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:text="@string/available_book"
+                        android:textColor="@color/white"
+                        android:textSize="16dp">
 
-            <TableRow>
+                    </TextView>
+                </TableRow>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp"
-                    android:text="@string/sold_number"
-                    android:textColor="@color/black"
-                    android:textSize="14dp">
+                <TableRow>
 
-                </TextView>
+                    <TextView
+                        android:id="@+id/sold_books_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:text="@string/sold_number"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="14dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"
-                    android:padding="10dp"
-                    android:text="@string/available_number"
-                    android:textColor="@color/black"
-                    android:textSize="14dp">
+                    </TextView>
 
-                </TextView>
+                    <TextView
+                        android:id="@+id/available_books_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:gravity="center_horizontal"
+                        android:padding="10dp"
+                        android:text="@string/available_number"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:textSize="14dp">
 
-            </TableRow>
-        </TableLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                    </TextView>
+
+                </TableRow>
+            </TableLayout>
+
+            <Button
+                android:id="@+id/addbook_btn"
+                android:layout_width="271dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/primaryGreen"
+                android:text="@string/add_book"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_editor_absoluteY="50dp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="75dp" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lineartable"
+
+
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="-3dp"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:paddingBottom="50dp" />
+    </RelativeLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/lineartt"
@@ -150,28 +163,7 @@
         app:layout_constraintVertical_bias="0.066"
         tools:ignore="MissingConstraints">
 
-        <Button
-            android:id="@+id/addbook_btn"
-            android:layout_width="271dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/primaryColor"
-            android:text="@string/add_book"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_editor_absoluteY="50dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteX="75dp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="2dp" />
 
 </LinearLayout>
